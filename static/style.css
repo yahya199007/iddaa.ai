@@ -1,0 +1,182 @@
+/* Custom Theme Enhancements for Iddaa AI */
+
+/* Glassmorphism & Glow Effects */
+.glow-emerald {
+    box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+}
+
+.glow-blue {
+    box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.25);
+}
+
+.glow-amber {
+    box-shadow: 0 0 25px -5px rgba(245, 158, 11, 0.25);
+}
+
+.glow-rose {
+    box-shadow: 0 0 30px -4px rgba(244, 63, 94, 0.35);
+}
+
+.glow-purple {
+    box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.25);
+}
+
+.glow-indigo {
+    box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.25);
+}
+
+.glow-cyan {
+    box-shadow: 0 0 25px -5px rgba(6, 182, 212, 0.25);
+}
+
+.glow-orange {
+    box-shadow: 0 0 25px -5px rgba(249, 115, 22, 0.25);
+}
+
+.glow-green {
+    box-shadow: 0 0 25px -5px rgba(34, 197, 94, 0.25);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0b0f19;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #23324a;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3b82f6;
+}
+
+/* Tab Button Active State */
+.tab-btn.active {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #ffffff;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    box-shadow: 0 4px 12px -2px rgba(59, 130, 246, 0.2);
+}
+
+/* Form Circles (W/D/L badges) */
+.form-badge-W, .form-badge-G {
+    background-color: #065f46;
+    color: #34d399;
+    border: 1px solid #10b981;
+}
+
+.form-badge-D, .form-badge-B {
+    background-color: #374151;
+    color: #9ca3af;
+    border: 1px solid #4b5563;
+}
+
+.form-badge-L, .form-badge-M {
+    background-color: #7f1d1d;
+    color: #f87171;
+    border: 1px solid #ef4444;
+}
+
+/* Transitions */
+.card-hover {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-3px);
+}
+
+/* Misli.com tarzı kupon satırı */
+.match-row-misli {
+    transition: background-color 0.15s ease;
+}
+.match-row-misli:hover {
+    background-color: rgba(255,255,255,0.02);
+}
+
+/* ============================================================ */
+/* Derin Analiz Modal Stilleri */
+/* ============================================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.deep-analysis-modal {
+  background: #0f172a;
+  border: 1px solid #1e293b;
+  border-radius: 20px;
+  max-width: 860px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  position: relative;
+}
+
+.modal-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  background: #1e293b;
+  border: none;
+  color: #94a3b8;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.btn-deep-analysis {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: opacity 0.2s;
+}
+
+.btn-deep-analysis:hover {
+  opacity: 0.85;
+}
+
+.loading-spin {
+  text-align: center;
+  padding: 40px;
+  color: #94a3b8;
+  font-size: 18px;
+  animation: pulse 1.5s infinite;
+}
+
+.error-msg {
+  text-align: center;
+  padding: 30px;
+  color: #ef4444;
+  font-size: 16px;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

@@ -1,0 +1,26 @@
+﻿{
+  "name": "İddaa AI Mega - Canlı Kupon & Maç Analiz",
+  "short_name": "İddaa AI",
+  "description": "Tüm Bahis Siteleri Ortak Havuz Yapay Zeka Kupon ve Canlı Maç Analiz Motoru",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#0f172a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/static/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/static/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
