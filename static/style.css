@@ -1,4 +1,57 @@
-/* Custom Theme Enhancements for Iddaa AI */
+/* ============================================================ */
+/* Global Mobile Viewport & Zero Horizontal Overflow Rules */
+/* ============================================================ */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    max-width: 100vw !important;
+    width: 100% !important;
+    overflow-x: hidden !important;
+    position: relative !important;
+    margin: 0;
+    padding: 0;
+    -webkit-text-size-adjust: 100%;
+    /* Locks horizontal panning on the whole page so mobile never wobbles/slides left/right */
+    touch-action: pan-y;
+    overscroll-behavior-x: none;
+}
+
+/* Ensure outer structural containers never exceed viewport width */
+.max-w-7xl, main, header, section, footer {
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+}
+
+/* Horizontal scrolling containers (chips, carousel tabs) must allow pan-x and contain scroll */
+.overflow-x-auto {
+    max-width: 100vw !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y !important;
+}
+
+/* Prevent unwanted word breaking that expands widths */
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Mobile-friendly touch targets without overflow */
+@media (max-width: 640px) {
+    body {
+        padding-bottom: 75px;
+    }
+    
+    .match-card-item {
+        max-width: 100% !important;
+        overflow: hidden !important;
+        width: 100% !important;
+    }
+}
 
 /* Glassmorphism & Glow Effects */
 .glow-emerald {

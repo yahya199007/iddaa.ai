@@ -1,13 +1,30 @@
-// Kendini silen Service Worker: eski önbelleği temizler ve kaydını kaldırır.
-// Eski sürümden kalan bozuk/eski sayfa görünümünü ve takılan uygulamayı düzeltir.
-self.addEventListener('install', () => self.skipWaiting());
-self.addEventListener('activate', (event) => {
-  event.waitUntil((async () => {
-    const keys = await caches.keys();
-    await Promise.all(keys.map((k) => caches.delete(k)));
-    await self.registration.unregister();
-    const clients = await self.clients.matchAll({ type: 'window' });
-    clients.forEach((c) => c.navigate(c.url));
-  })());
+const CACHE_NAME = 'iddaa-ai-pwa-v4';
+
+self.addEventListener('install', (event) => {
+  self.skipWaiting();
 });
-// Fetch'i yakalamıyoruz: her istek doğrudan sunucudan gelir (güncel veri).
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))
+      );
+    }).then(() => self.clients.claim())
+  );
+});
+
+// Network-first for static assets, ALWAYS direct network for /api/
+self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+  const url = new URL(event.request.url);
+  if (url.pathname.startsWith('/api/')) {
+    event.respondWith(fetch(event.request));
+    return;
+  }
+  event.respondWith(
+    fetch(event.request)
+      .then((response) => response)
+      .catch(() => caches.match(event.request))
+  );
+});

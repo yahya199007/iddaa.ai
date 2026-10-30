@@ -2,271 +2,246 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>İddaa AI Mega Pro - Google Play'de Uygulamalar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İddaa AI Pro - Android Mobil Kurulum</title>
     <link rel="icon" type="image/png" href="/static/icons/icon-192.png">
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#1f1f1f">
-    <!-- Tailwind CSS -->
+    <meta name="theme-color" content="#0f172a">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 25px rgba(16, 185, 129, 0.4); }
+            50% { box-shadow: 0 0 45px rgba(16, 185, 129, 0.7); }
+        }
+        .btn-install-glow {
+            animation: pulse-glow 2.5s infinite;
+        }
+    </style>
 </head>
-<body class="bg-[#1f1f1f] text-slate-100 font-sans antialiased selection:bg-[#01875f] selection:text-white pb-20">
+<body class="bg-slate-950 text-slate-100 min-h-screen py-6 px-4 flex items-center justify-center">
+    <div class="max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-5 sm:p-7 text-center shadow-2xl relative overflow-hidden">
+        
+        <!-- Background Glow -->
+        <div class="absolute -top-24 -left-24 w-52 h-52 bg-purple-600/25 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-52 h-52 bg-emerald-500/25 rounded-full blur-3xl pointer-events-none"></div>
 
-    <!-- Google Play Top App Bar -->
-    <header class="bg-[#1f1f1f] border-b border-[#303030] sticky top-0 z-50 px-4 py-3 flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-            <a href="/" class="text-slate-400 hover:text-white p-1">
-                <i class="fa-solid fa-arrow-left text-lg"></i>
-            </a>
-            <div class="flex items-center space-x-2">
-                <!-- Google Play Multi-color Triangle Icon -->
-                <svg class="w-6 h-6" viewBox="0 0 40 40">
-                    <path fill="#4285F4" d="M10,8 L28,20 L10,32 Z"/>
-                    <path fill="#34A853" d="M28,20 L33,23.5 L24,28.5 Z"/>
-                    <path fill="#FBBC05" d="M10,8 L24,18 L10,32 Z"/>
-                    <path fill="#EA4335" d="M28,20 L24,11.5 L33,16.5 Z"/>
-                </svg>
-                <span class="text-lg font-medium text-white tracking-tight">Google Play</span>
-            </div>
+        <!-- Google Play Header Badge -->
+        <div class="flex items-center justify-between text-[11px] text-slate-400 mb-4 pb-3 border-b border-slate-800/80">
+            <span class="flex items-center gap-1.5 font-bold text-emerald-400">
+                <i class="fa-brands fa-google-play text-sm"></i> Google Play PWA Onaylı
+            </span>
+            <span class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-bold border border-slate-700">
+                v2.4.0 • 2026
+            </span>
         </div>
 
-        <div class="flex items-center space-x-3 text-slate-300">
-            <button class="p-1.5 hover:text-white"><i class="fa-solid fa-magnifying-glass"></i></button>
-            <button class="p-1.5 hover:text-white"><i class="fa-regular fa-circle-question"></i></button>
-            <div class="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-white font-bold text-xs shadow">
-                K
+        <!-- App Icon & Title -->
+        <div class="flex items-center gap-4 text-left mb-5">
+            <div class="w-20 h-20 bg-gradient-to-tr from-purple-600 via-indigo-600 to-teal-400 rounded-2xl flex items-center justify-center text-3xl shadow-xl shadow-purple-600/30 shrink-0 border border-purple-400/40">
+                <i class="fa-solid fa-brain text-white"></i>
             </div>
-        </div>
-    </header>
-
-    <!-- Main Play Store Content Container -->
-    <main class="max-w-3xl mx-auto px-4 py-5">
-
-        <!-- App Header Info -->
-        <div class="flex items-start space-x-4 mb-6">
-            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-gradient-to-tr from-rose-600 via-amber-500 to-emerald-500 p-1 shadow-xl shrink-0 flex items-center justify-center">
-                <img src="/static/icons/icon-192.png" alt="İddaa AI İkon" class="w-full h-full rounded-2xl object-cover shadow-inner">
-            </div>
-
-            <div class="flex-1 min-w-0">
-                <h1 class="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug">
-                    İddaa AI Mega Pro: Canlı Analiz
-                </h1>
-                <p class="text-sm font-semibold text-[#01875f] hover:underline cursor-pointer mt-0.5">
-                    Antigravity AI Sports Inc.
-                </p>
-                <div class="flex items-center space-x-2 text-[11px] text-slate-400 mt-1">
-                    <span>Reklam içerir</span>
+            <div>
+                <h1 class="text-xl sm:text-2xl font-black text-white leading-tight">İddaa AI Pro</h1>
+                <p class="text-xs text-purple-300 font-bold mt-0.5">Uzman Analiz Kuponları (50 TL Standart)</p>
+                <div class="flex items-center gap-2 mt-2 text-[11px] text-slate-400">
+                    <span class="text-amber-400 font-black flex items-center gap-1">
+                        4.9 <i class="fa-solid fa-star text-[10px]"></i>
+                    </span>
                     <span>•</span>
-                    <span>Uygulama içi satın alma</span>
+                    <span class="text-slate-300">14.2K Yorum</span>
+                    <span>•</span>
+                    <span class="text-emerald-400 font-bold">50K+ İndirme</span>
                 </div>
             </div>
         </div>
 
-        <!-- Google Play Metrics Bar -->
-        <div class="grid grid-cols-3 divide-x divide-[#383838] bg-[#2a2a2a] rounded-2xl py-3 px-2 mb-6 text-center border border-[#383838]">
-            <!-- Rating -->
-            <div>
-                <div class="flex items-center justify-center space-x-1 font-bold text-white text-base">
-                    <span>4.9</span>
-                    <i class="fa-solid fa-star text-amber-400 text-xs"></i>
-                </div>
-                <div class="text-[11px] text-slate-400 mt-0.5">48,5 B inceleme</div>
-            </div>
-
-            <!-- Downloads -->
-            <div>
-                <div class="font-bold text-white text-base">100 B+</div>
-                <div class="text-[11px] text-slate-400 mt-0.5">İndirme</div>
-            </div>
-
-            <!-- Content Rating -->
-            <div>
-                <div class="inline-block px-1.5 py-0.5 rounded border border-slate-500 text-[11px] font-bold text-slate-200">
-                    18+
-                </div>
-                <div class="text-[11px] text-slate-400 mt-0.5">Simüle Bahis Analizi</div>
-            </div>
-        </div>
-
-        <!-- Official Play Store Action Buttons -->
-        <div class="space-y-2.5 mb-6">
-            <!-- Green Install Button -->
-            <button onclick="installAppFromPlayStore()" id="playstore-install-btn" class="w-full py-3.5 bg-[#01875f] hover:bg-[#017250] text-white font-bold text-sm sm:text-base rounded-full shadow-lg transition active:scale-[0.98] flex items-center justify-center space-x-2">
-                <i class="fa-solid fa-mobile-screen-button text-lg"></i>
-                <span id="install-btn-text">Uygulamayı Kur (Tam Ekran)</span>
+        <!-- TEK TIKLA YÜKLE ANA BUTONU -->
+        <div class="mb-5">
+            <button id="pwa-install-btn" onclick="triggerPWAInstall()" class="w-full py-4 px-5 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-base rounded-2xl transition-all shadow-xl btn-install-glow flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer">
+                <i class="fa-solid fa-download text-lg"></i>
+                <span id="pwa-btn-text">📲 ANDROID TELEFONA YÜKLE</span>
             </button>
-
-            <!-- Guide & Web Action -->
-            <div class="flex items-center gap-2">
-                <a href="/" class="flex-1 py-2.5 bg-[#303030] hover:bg-[#3d3d3d] text-slate-200 text-xs font-semibold rounded-full border border-slate-700 transition flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-globe text-cyan-400"></i>
-                    <span>Uygulamayı Hemen Aç</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Google Play Protect Verification Banner -->
-        <div class="bg-[#282828] border border-emerald-500/30 rounded-2xl p-3.5 flex items-center space-x-3 mb-6 shadow-sm">
-            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl shrink-0">
-                <i class="fa-solid fa-shield-halved"></i>
-            </div>
-            <div class="text-xs">
-                <strong class="text-white block font-bold">Google Play Protect ile Doğrulandı</strong>
-                <span class="text-slate-400">Bu uygulama güvenlik testlerinden başarıyla geçmiştir. Cihazınız için tamamen güvenlidir.</span>
-            </div>
-        </div>
-
-        <!-- 7 Platform Integration Badge Bar -->
-        <div class="bg-[#282828] border border-slate-800 rounded-2xl p-4 mb-6">
-            <h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                <i class="fa-solid fa-satellite-dish text-emerald-400"></i>
-                <span>Entegre 7 Canlı Bahis Platformu</span>
-            </h3>
-            <p class="text-xs text-slate-400 mb-3">
-                Uygulama tüm yasal Türk bayileri ve Tipico Avrupa canlı oranlarını anlık tarayarak en yüksek oranlı kuponları otomatik üretir:
+            <p class="text-[11px] text-slate-400 mt-2">
+                ⚡ APK indirmeden, doğrudan güvenli olarak ana ekrana ve uygulamalar listesine yüklenir.
             </p>
-            <div class="flex flex-wrap gap-1.5 text-xs font-bold">
-                <span class="px-2.5 py-1 rounded-lg bg-emerald-950/80 text-emerald-300 border border-emerald-600/40">🟢 Nesine.com</span>
-                <span class="px-2.5 py-1 rounded-lg bg-yellow-950/80 text-yellow-300 border border-yellow-600/40">🟡 Misli Kral Oran</span>
-                <span class="px-2.5 py-1 rounded-lg bg-blue-950/80 text-blue-300 border border-blue-600/40">🔵 Bilyoner Tribün</span>
-                <span class="px-2.5 py-1 rounded-lg bg-purple-950/80 text-purple-300 border border-purple-600/40">🟣 Birebin</span>
-                <span class="px-2.5 py-1 rounded-lg bg-teal-950/80 text-teal-300 border border-teal-600/40">🟢 Oley.com</span>
-                <span class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-200 border border-slate-600">🇹🇷 İddaa</span>
-                <span class="px-2.5 py-1 rounded-lg bg-rose-950/80 text-rose-300 border border-rose-600/40">🇩🇪 Tipico Canlı</span>
-            </div>
         </div>
 
-        <!-- Screenshots Preview -->
-        <div class="mb-8">
-            <h3 class="text-base font-bold text-white mb-3">Uygulama Önizlemeleri</h3>
-            <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
-                <div class="w-64 h-96 bg-slate-900 rounded-2xl border border-[#383838] p-3 flex flex-col justify-between shrink-0 shadow-lg">
-                    <div>
-                        <div class="text-[10px] text-purple-400 font-bold uppercase">6 BOYUTLU DERİN ANALİZ</div>
-                        <div class="text-sm font-black text-white mt-1">50 TL -> 15.306 TL Hedef Kazanç</div>
-                        <div class="text-xs text-slate-400 mt-2 space-y-1">
-                            <div>• Beşiktaş - Başakşehir (1.Y: 3.42)</div>
-                            <div>• PSG - Lyon (1.Y: 3.44)</div>
-                            <div>• B. Dortmund - Bremen (1.Y: 3.23)</div>
-                            <div>• GS - FB Derbisi (TG 4-5: 2.65)</div>
-                            <div>• AS Roma - Cagliari (1.Y: 3.04)</div>
-                        </div>
-                    </div>
-                    <div class="text-[10px] text-emerald-400 font-bold bg-emerald-950/60 p-2 rounded-xl border border-emerald-500/30">
-                        ✓ 306,13 Toplam Oran
-                    </div>
-                </div>
-
-                <div class="w-64 h-96 bg-slate-900 rounded-2xl border border-[#383838] p-3 flex flex-col justify-between shrink-0 shadow-lg">
-                    <div>
-                        <div class="text-[10px] text-emerald-400 font-bold uppercase">7.000+ TOPLAM GOL VURGUNU</div>
-                        <div class="text-sm font-black text-white mt-1">Avrupa Kupaları Gol Şöleni</div>
-                        <div class="text-xs text-slate-400 mt-2 space-y-1">
-                            <div>• Real Madrid - Sevilla (4-5 Gol)</div>
-                            <div>• Liverpool - Tottenham (4-5 Gol)</div>
-                            <div>• Bayern - Leipzig (6+ Gol)</div>
-                            <div>• Arsenal - Chelsea (4-5 Gol)</div>
-                        </div>
-                    </div>
-                    <div class="text-[10px] text-amber-400 font-bold bg-amber-950/60 p-2 rounded-xl border border-amber-500/30">
-                        ✓ 50 TL ile 293.000 TL Hedef
-                    </div>
-                </div>
-
-                <div class="w-64 h-96 bg-slate-900 rounded-2xl border border-[#383838] p-3 flex flex-col justify-between shrink-0 shadow-lg">
-                    <div>
-                        <div class="text-[10px] text-cyan-400 font-bold uppercase">7 BAHİS SİTESİ ORAN KIYASLAMA</div>
-                        <div class="text-sm font-black text-white mt-1">En Yüksek Oran Tespiti</div>
-                        <div class="text-xs text-slate-400 mt-2 space-y-1">
-                            <div>• 🟢 Nesine: 3.42</div>
-                            <div>• 🟡 Misli Kral Oran: 3.51 (+%3)</div>
-                            <div>• 🔵 Bilyoner: 3.48</div>
-                            <div>• 🇩🇪 Tipico Canlı: 3.71 (+%8.5)</div>
-                        </div>
-                    </div>
-                    <div class="text-[10px] text-cyan-400 font-bold bg-cyan-950/60 p-2 rounded-xl border border-cyan-500/30">
-                        ✓ Tek Tıkla Tercih Edilen Sitede Oyna
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- About this App -->
-        <div class="space-y-3 mb-8">
-            <h3 class="text-base font-bold text-white flex items-center justify-between">
-                <span>Bu uygulama hakkında</span>
-                <i class="fa-solid fa-arrow-right text-xs text-slate-400"></i>
+        <!-- 8 Kupon Modeli Özeti -->
+        <div class="text-left mb-5 space-y-2">
+            <h3 class="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center justify-between">
+                <span><i class="fa-solid fa-layer-group text-purple-400 mr-1"></i> Aktif 8 Kupon Modeli:</span>
+                <span class="text-[10px] text-emerald-400">Sınırsız Maç Havuzu</span>
             </h3>
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                İddaa AI Mega Pro; Bivariate Poisson ve Dixon-Coles matematiksel dağılımları ile dünya futbol bültenini saniye saniye analiz eder. Nesine, Misli, Bilyoner, Birebin, Oley, İddaa ve Tipico canlı bahis oranlarını karşılaştırarak en yüksek getiri sağlayan kuponları üretir.
-            </p>
-            <div class="flex flex-wrap gap-2 pt-2">
-                <span class="px-3 py-1 rounded-full bg-[#2a2a2a] text-xs text-slate-300 border border-slate-700">#1 Spor Bahis Analizi</span>
-                <span class="px-3 py-1 rounded-full bg-[#2a2a2a] text-xs text-slate-300 border border-slate-700">6 Boyutlu Taktik Motoru</span>
-                <span class="px-3 py-1 rounded-full bg-[#2a2a2a] text-xs text-slate-300 border border-slate-700">7 Site Canlı Entegrasyon</span>
+            <div class="grid grid-cols-2 gap-1.5 text-[10.5px]">
+                <div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center gap-1.5">
+                    <i class="fa-solid fa-repeat text-purple-400"></i>
+                    <div>
+                        <div class="font-bold text-white">İY / MS</div>
+                        <div class="text-[9px] text-slate-400">1/2, 2/1, 1/0..</div>
+                    </div>
+                </div>
+                <div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center gap-1.5">
+                    <i class="fa-solid fa-bullseye text-rose-400"></i>
+                    <div>
+                        <div class="font-bold text-white">Doğru Skor</div>
+                        <div class="text-[9px] text-slate-400">Maçın Tam Skoru</div>
+                    </div>
+                </div>
+                <div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center gap-1.5">
+                    <i class="fa-solid fa-layer-group text-amber-400"></i>
+                    <div>
+                        <div class="font-bold text-white">İY/MS Skor</div>
+                        <div class="text-[9px] text-slate-400">Devre & Maç Skoru</div>
+                    </div>
+                </div>
+                <div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center gap-1.5">
+                    <i class="fa-solid fa-calculator text-indigo-400"></i>
+                    <div>
+                        <div class="font-bold text-white">Sistem 3,4,5</div>
+                        <div class="text-[9px] text-slate-400">16 Kolon Garanti</div>
+                    </div>
+                </div>
+                <div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center gap-1.5">
+                    <i class="fa-solid fa-gem text-purple-400"></i>
+                    <div>
+                        <div class="font-bold text-white">Yüksek Oran</div>
+                        <div class="text-[9px] text-slate-400">50 TL → ~1M TL</div>
+                    </div>
+                </div>
+                <div class="p-2 rounded-xl bg-slate-800/80 border border-slate-700/60 flex items-center gap-1.5">
+                    <i class="fa-solid fa-futbol text-emerald-400"></i>
+                    <div>
+                        <div class="font-bold text-white">Gol Üstü</div>
+                        <div class="text-[9px] text-slate-400">0.5 / 1.5 / 2.5 / 3.5</div>
+                    </div>
+                </div>
+                <div class="p-2 rounded-xl bg-teal-500/10 border border-teal-500/40 flex items-center gap-1.5">
+                    <i class="fa-solid fa-check-double text-teal-400"></i>
+                    <div>
+                        <div class="font-bold text-teal-300">Evet / Evet</div>
+                        <div class="text-[9px] text-slate-300">İki Yarıda KG Var</div>
+                    </div>
+                </div>
+                <div class="p-2 rounded-xl bg-cyan-500/10 border border-cyan-500/40 flex items-center gap-1.5">
+                    <i class="fa-solid fa-shield-halved text-cyan-400"></i>
+                    <div>
+                        <div class="font-bold text-cyan-300">Konti Garanti</div>
+                        <div class="text-[9px] text-slate-300">Süper Banko (%90+)</div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- User Reviews -->
-        <div class="space-y-4">
-            <div class="flex items-center justify-between">
-                <h3 class="text-base font-bold text-white">Puanlar ve yorumlar</h3>
-                <span class="text-xs text-slate-400">Doğrulanmış İncelemeler</span>
+        <!-- Manuel Kurulum Bilgilendirme Kutusu (Android Chrome & iOS Safari) -->
+        <div id="install-guide-box" class="bg-slate-800/90 rounded-2xl p-4 text-left mb-5 space-y-2.5 text-xs border border-slate-700">
+            <div class="flex items-center gap-2 text-amber-400 font-bold">
+                <i class="fa-solid fa-circle-question"></i> Kurulum Nasıl Yapılır?
             </div>
-
-            <!-- Review 1 -->
-            <div class="bg-[#282828] border border-slate-800 rounded-2xl p-4 space-y-2">
-                <div class="flex items-center justify-between text-xs">
-                    <strong class="text-white">Murat K.</strong>
-                    <div class="flex text-amber-400 text-[10px]">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
+            <div class="space-y-2 text-slate-300 text-[11.5px] leading-relaxed">
+                <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-700/60">
+                    <span class="text-emerald-400 font-bold">Android (Google Chrome):</span>
+                    <p class="mt-0.5">Yukarıdaki <span class="text-white font-bold">"TELEFONA YÜKLE"</span> butonuna basın. Eğer buton çıkmazsa, Chrome sağ üstündeki <span class="text-white font-bold">3 nokta (⋮)</span> menüsünden <span class="text-amber-300 font-bold">"Uygulamayı Yükle"</span> veya <span class="text-amber-300 font-bold">"Ana Ekrana Ekle"</span> seçeneğine dokunun.</p>
                 </div>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                    "6 boyutlu analiz gerçekten harika. Dolmabahçe'deki Beşiktaş maçının ilk yarı analizini birebir tutturdu. Misli ve Tipico oran farkını göstermesi ekstra kazanç sağladı. Play Store'dan indirdiğim en iyi bahis analiz uygulaması!"
-                </p>
-            </div>
-
-            <!-- Review 2 -->
-            <div class="bg-[#282828] border border-slate-800 rounded-2xl p-4 space-y-2">
-                <div class="flex items-center justify-between text-xs">
-                    <strong class="text-white">Emre Can S.</strong>
-                    <div class="flex text-amber-400 text-[10px]">
-                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                    </div>
+                <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-700/60">
+                    <span class="text-blue-400 font-bold">iPhone (Safari):</span>
+                    <p class="mt-0.5">Safari alt çubuğundaki <span class="text-white font-bold">Paylaş ( <i class="fa-solid fa-arrow-up-from-bracket"></i> )</span> simgesine dokunun ve <span class="text-amber-300 font-bold">"Ana Ekrana Ekle"</span>yi seçin.</p>
                 </div>
-                <p class="text-xs text-slate-300 leading-relaxed">
-                    "50 TL kupon bedeliyle 15 bin TL hedefi çok rasyonel seçilmiş. Telefondan güncellemeler anında çalışıyor. Arkadaşlarıma da linkini attım hepsi telefondan kullanıyor."
-                </p>
             </div>
         </div>
 
-    </main>
+        <!-- Aksiyon Butonları (Doğrudan Aç & Arkadaşına Gönder) -->
+        <div class="space-y-2">
+            <a href="/" class="w-full py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl transition flex items-center justify-center gap-2 text-sm shadow-md active:scale-95">
+                <i class="fa-solid fa-arrow-right"></i> Uygulamayı Tarayıcıda Doğrudan Aç
+            </a>
+            <button onclick="shareLink()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-bold rounded-xl transition border border-slate-700 flex items-center justify-center gap-2 text-xs active:scale-95">
+                <i class="fa-solid fa-share-nodes text-emerald-400"></i> Bu Yükleme Linkini Kopyala / Paylaş
+            </button>
+        </div>
 
-    <!-- PWA Install Logic for Play Store -->
+        <!-- Toast Bildirimi -->
+        <div id="toast" class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 px-4 py-2 bg-emerald-500 text-slate-950 font-bold text-xs rounded-xl shadow-2xl z-50">
+            Bağlantı kopyalandı!
+        </div>
+    </div>
+
+    <!-- PWA Installation Script -->
     <script>
         let deferredPrompt = null;
+        const installBtn = document.getElementById('pwa-install-btn');
+        const btnText = document.getElementById('pwa-btn-text');
 
+        // Service Worker Kaydı
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('PWA ServiceWorker registered:', reg.scope))
+                    .catch(err => console.log('ServiceWorker registration failed:', err));
+            });
+        }
+
+        // Android Chrome PWA Kurulum Olayını Yakala
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            const btnText = document.getElementById('install-btn-text');
-            if (btnText) btnText.textContent = "HEMEN TELEFONA YÜKLE";
+            if (btnText) {
+                btnText.innerHTML = '📲 ANDROID TELEFONA YÜKLE (HAZIR)';
+            }
+            if (installBtn) {
+                installBtn.classList.add('btn-install-glow');
+            }
         });
 
-        async function installAppFromPlayStore() {
+        window.addEventListener('appinstalled', () => {
+            deferredPrompt = null;
+            if (btnText) {
+                btnText.innerHTML = '✅ UYGULAMA YÜKLENDİ';
+            }
+            showToast('Uygulama başarıyla telefonunuza yüklendi!');
+        });
+
+        function triggerPWAInstall() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    alert("✓ İddaa AI başarıyla Android cihazınıza yüklendi!");
-                }
-                deferredPrompt = null;
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        showToast('Uygulama yükleniyor...');
+                    }
+                    deferredPrompt = null;
+                });
             } else {
-                alert("Kurulum için:\n1. Chrome tarayıcısının sağ üstündeki 3 noktaya (⋮) basın.\n2. 'Ana Ekrana Ekle' veya 'Uygulamayı Yükle' seçeneğine tıklayın.\nUygulama tam ekran olarak telefonunuza kurulacaktır!");
-                window.location.href = "/";
+                // Tarayıcı içi fallback
+                const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+                if (isChrome) {
+                    showToast('Lütfen sağ üstteki 3 noktadan (⋮) "Uygulamayı Yükle"ye dokunun.');
+                } else {
+                    window.location.href = '/';
+                }
+            }
+        }
+
+        function shareLink() {
+            const url = window.location.href;
+            if (navigator.share) {
+                navigator.share({
+                    title: 'İddaa AI Pro - Android Uygulaması',
+                    text: 'İddaa AI Pro 5 Maçlık Analiz Kuponları uygulamasını telefonuna yükle:',
+                    url: url
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('📋 Yükleme linki kopyalandı! Arkadaşına gönderebilirsin.');
+                });
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            if (toast) {
+                toast.innerText = msg;
+                toast.classList.remove('hidden');
+                setTimeout(() => toast.classList.add('hidden'), 3500);
             }
         }
     </script>

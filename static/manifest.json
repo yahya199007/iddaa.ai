@@ -1,7 +1,7 @@
-﻿{
-  "name": "İddaa AI Mega - Canlı Kupon & Maç Analiz",
-  "short_name": "İddaa AI",
-  "description": "Tüm Bahis Siteleri Ortak Havuz Yapay Zeka Kupon ve Canlı Maç Analiz Motoru",
+{
+  "name": "İddaa AI Pro - 5 Maçlık Analiz Kuponları (50 TL)",
+  "short_name": "İddaa AI Pro",
+  "description": "Dünya İstatistikleri ve Türkiye Yasal İddaa Bülteni ile Uzman Analiz Kuponları (İY/MS, Doğru Skor, Evet/Evet, Konti Garanti)",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -23,4 +23,3 @@
     }
   ]
 }
-

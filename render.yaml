@@ -1,8 +1,10 @@
 services:
   - type: web
-    name: iddaa-ai-pro
+    name: iddaa-ai
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    startCommand: gunicorn app:app --workers 2 --threads 4 --timeout 120
     plan: free
-    autoDeploy: true
+    envVars:
+      - key: NO_TUNNEL
+        value: "1"

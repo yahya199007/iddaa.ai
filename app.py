@@ -1,3 +1,4 @@
+import gzip
 import os
 import datetime
 import socket
@@ -93,6 +94,33 @@ def start_cloudflared_tunnel():
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+# Global Kupon Önbelleği & Gzip Sıkıştırma (Turbo Yükleme)
+_coupons_cache = {}
+
+@app.after_request
+def compress_response(response):
+    try:
+        if getattr(response, 'direct_passthrough', False) or getattr(response, 'is_streamed', False):
+            return response
+        if not (200 <= response.status_code < 300) or 'Content-Encoding' in response.headers:
+            return response
+        accept_encoding = request.headers.get('Accept-Encoding', '')
+        if 'gzip' not in accept_encoding.lower():
+            return response
+        mimetype = response.mimetype or ''
+        if not any(t in mimetype for t in ['json', 'text', 'javascript', 'html', 'css', 'xml']):
+            return response
+        data = response.get_data()
+        if len(data) < 400:
+            return response
+        compressed = gzip.compress(data, compresslevel=6)
+        response.set_data(compressed)
+        response.headers['Content-Encoding'] = 'gzip'
+        response.headers['Content-Length'] = len(compressed)
+        return response
+    except Exception:
+        return response
 engine = PredictionEngine()
 optimizer = CouponOptimizer()
 
@@ -130,25 +158,103 @@ def get_deep_analysis(match_id):
         return jsonify({"success": False, "error": "Maç bulunamadı"}), 404
 
     analysis = deep_engine.generate_full_analysis(m)
-    return jsonify({"success": True, "analysis": analysis, "match_id": match_id})
+    if isinstance(analysis, dict):
+        analysis["home_team"] = m.get("home_team")
+        analysis["away_team"] = m.get("away_team")
+        analysis["league"] = m.get("league")
+        analysis["match_time"] = m.get("match_time")
+        analysis["bulten_code"] = m.get("bulten_code") or m.get("nesine_code")
+        analysis["mbs"] = m.get("mbs", 1)
+        analysis["odds"] = m.get("odds", {})
+    return jsonify({"success": True, "analysis": analysis, "match_id": match_id, "match": m})
 
 
 @app.route("/api/match-all-odds/<match_id>", methods=["GET"])
 def get_match_all_odds(match_id):
-    """Bir maç için bültendeki tüm 90+ piyasa ve 400-500+ oran seçeneğini kategorize edilmiş döner"""
+    """Bir maç için platform karşılaştırma oranlarını ve tüm Nesine/İddaa piyasa seçeneklerini döner"""
     m = get_match_by_id(match_id)
     if not m:
         return jsonify({"success": False, "error": "Maç bulunamadı"}), 404
 
     all_markets = m.get("all_markets", [])
     categories = m.get("market_categories", {})
+    table = get_platform_comparison_table(m)
+    odds = m.get("odds", {})
+
+    # Kategorize edilmiş gerçek Nesine/İddaa oranları
+    categorized = {
+        "ms": {
+            "MS 1": odds.get("ms1"),
+            "MS X": odds.get("msX"),
+            "MS 2": odds.get("ms2")
+        },
+        "iy_ms": {
+            "1/1": odds.get("ht_ft_11"),
+            "1/0": odds.get("ht_ft_10"),
+            "1/2": odds.get("ht_ft_12"),
+            "0/1": odds.get("ht_ft_01") or odds.get("ht_ft_X1"),
+            "0/0": odds.get("ht_ft_00") or odds.get("ht_ft_XX"),
+            "0/2": odds.get("ht_ft_02") or odds.get("ht_ft_X2"),
+            "2/1": odds.get("ht_ft_21"),
+            "2/0": odds.get("ht_ft_20"),
+            "2/2": odds.get("ht_ft_22")
+        },
+        "dogru_skor": {
+            (f"{k.replace('ft_score_', '')[0]}-{k.replace('ft_score_', '')[1]}" if len(k.replace('ft_score_', '')) == 2 and k.replace('ft_score_', '').isdigit() else (k.replace('ft_score_', 'Diğer') if 'other' in k else k.replace('ft_score_', ''))): v
+            for k, v in odds.items() if k.startswith("ft_score_")
+        },
+        "goller": {
+            "0.5 Gol Üst": odds.get("over05") or (1.08 if odds.get("over15") else None),
+            "1.5 Gol Üst": odds.get("over15"),
+            "2.5 Gol Alt": odds.get("under25"),
+            "2.5 Gol Üst": odds.get("over25"),
+            "3.5 Gol Üst": odds.get("over35")
+        },
+        "kg": {
+            "KG Var": odds.get("btts_yes"),
+            "KG Yok": odds.get("btts_no")
+        },
+        "iy_ms_skor": {
+            (f"İY {k.replace('htft_score_', '').split('_')[0][0]}-{k.replace('htft_score_', '').split('_')[0][1]} / MS {k.replace('htft_score_', '').split('_')[1][0]}-{k.replace('htft_score_', '').split('_')[1][1]}"
+             if '_' in k and len(k.replace('htft_score_', '').split('_')[0]) == 2 and len(k.replace('htft_score_', '').split('_')[1]) == 2
+             else k.replace('htft_score_', '').replace('_', ' / ')): v
+            for k, v in odds.items() if k.startswith("htft_score_")
+        },
+        "kombin": {
+            "MS 1 & KG Var": odds.get("ms1_btts_yes"),
+            "MS 2 & KG Var": odds.get("ms2_btts_yes"),
+            "MS X & KG Var": odds.get("msX_btts_yes"),
+            "MS 1 & 2.5 Üst": odds.get("ms1_over25"),
+            "MS 2 & 2.5 Üst": odds.get("ms2_over25"),
+            "Her İki Yarıda KG Var": odds.get("both_halves_btts_yes")
+        }
+    }
+
     return jsonify({
         "success": True,
+        "match": {
+            "id": match_id,
+            "home_team": m.get("home_team"),
+            "away_team": m.get("away_team"),
+            "league": m.get("league"),
+            "match_time": m.get("match_time"),
+            "bulten_code": m.get("bulten_code") or m.get("nesine_code"),
+            "mbs": m.get("mbs", 1),
+        },
         "match_id": match_id,
         "match_name": f"{m.get('home_team')} - {m.get('away_team')}",
+        "home_team": m.get("home_team"),
+        "away_team": m.get("away_team"),
         "league": m.get("league"),
         "time": m.get("match_time"),
+        "match_time": m.get("match_time"),
         "bulten_code": m.get("bulten_code") or m.get("nesine_code"),
+        "mbs": m.get("mbs", 1),
+        "comparison_table": table,
+        "all_odds": table,
+        "odds": odds,
+        "categorized_odds": categorized,
+        "all_platform_odds": m.get("all_platform_odds", {}),
         "market_count": m.get("market_count", len(all_markets)),
         "odds_count": m.get("odds_count", sum(len(x.get("outcomes", [])) for x in all_markets)),
         "categories": categories,
@@ -319,6 +425,62 @@ def get_matches():
         
     return jsonify({"success": True, "matches": analyzed})
 
+@app.route("/api/iyms-skor-tablosu", methods=["GET"])
+def get_iyms_skor_tablosu():
+    """
+    Tüm bülten maçları için Bivariate Poisson & Dixon-Coles tabanlı
+    İY MS Skor Tablosunu dinamik hesaplayarak döner.
+    """
+    matches = load_matches()
+    table = []
+    now_dt = datetime.datetime.now()
+
+    for m in matches:
+        mt_str = m.get("match_time", "")
+        if mt_str:
+            try:
+                m_dt = datetime.datetime.strptime(mt_str, "%d.%m.%Y %H:%M")
+                if m_dt <= now_dt:
+                    continue
+            except Exception:
+                pass
+
+        l_home, l_away = engine.calculate_expected_goals(m.get("home_stats", {}), m.get("away_stats", {}))
+        iyms = engine.calculate_iyms_score_analysis(l_home, l_away, m.get("odds", {}), m)
+
+        b_code = m.get("bulten_code") or m.get("nesine_code") or str(m.get("id", "")).replace("st-", "").replace("nesine-", "")
+        table.append({
+            "match_id": m["id"],
+            "bulten_code": b_code,
+            "home_team": m["home_team"],
+            "away_team": m["away_team"],
+            "match_name": f"{m['home_team']} - {m['away_team']}",
+            "league": m.get("league", "Futbol"),
+            "country": m.get("country", "🌍"),
+            "match_time": m.get("match_time", ""),
+            "mbs": int(m.get("mbs") or 1),
+            "ai_ht_score": iyms["ai_ht_score"],
+            "ai_ft_score": iyms["ai_ft_score"],
+            "ai_iyms_code": iyms["ai_iyms_code"],
+            "ai_iyms_label": iyms["ai_iyms_label"],
+            "score_display": iyms["score_display"],
+            "score_prob": iyms["score_prob"],
+            "cat_prob": iyms["cat_prob"],
+            "odd": iyms.get("score_odd", iyms["odd"]),
+            "score_odd": iyms.get("score_odd", iyms["odd"]),
+            "iyms_odd": iyms.get("iyms_odd", 4.50),
+            "htft_score_odd": iyms.get("htft_score_odd", 24.00),
+            "confidence": iyms["confidence"],
+            "note": iyms["note"],
+            "home_xg": iyms["home_xg"],
+            "away_xg": iyms["away_xg"],
+            "total_xg": iyms["total_xg"],
+            "top_combos": iyms.get("top_combos", [])
+        })
+
+    table.sort(key=lambda x: (x["confidence"], x["score_prob"]), reverse=True)
+    return jsonify({"success": True, "count": len(table), "table": table})
+
 @app.route("/api/matches/<match_id>", methods=["GET"])
 def get_match_detail(match_id):
     m = get_match_by_id(match_id)
@@ -343,7 +505,12 @@ def get_match_detail(match_id):
 def get_coupons():
     try:
         rotation = int(request.args.get("rotation", getattr(optimizer, 'rotation_index', 0)))
+        force = request.args.get("force", "0") == "1"
+        if not force and rotation in _coupons_cache:
+            return jsonify({"success": True, "coupons": _coupons_cache[rotation], "rotation": rotation})
+
         coupons = optimizer.generate_all_coupons(rotation=rotation)
+        _coupons_cache[rotation] = coupons
         return jsonify({"success": True, "coupons": coupons, "rotation": rotation})
     except Exception as e:
         import traceback
@@ -358,8 +525,10 @@ def refresh_coupons():
     except Exception as e:
         print(f"Bülten canlı yenileme uyarısı: {e}")
 
+    _coupons_cache.clear()
     optimizer.rotation_index = getattr(optimizer, 'rotation_index', 0) + 1
     coupons = optimizer.generate_all_coupons(rotation=optimizer.rotation_index)
+    _coupons_cache[optimizer.rotation_index] = coupons
     matches = load_matches()
     return jsonify({
         "success": True,

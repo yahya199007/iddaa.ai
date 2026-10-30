@@ -1,43 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>İddaa AI Pro | Yüksek Güvenli Net Kupon ve Analiz Sistemi</title>
-    <!-- Favicon & PWA Icons -->
-    <link rel="icon" type="image/png" href="/static/icons/icon-192.png">
-    <link rel="apple-touch-icon" href="/static/icons/icon-192.png">
-    <!-- Tam ekran uygulama kurulumu (menüden "Uygulamayı yükle"); otomatik banner JS ile engelli -->
-    <link rel="manifest" href="/manifest.json">
-    <meta name="mobile-web-app-capable" content="yes">
-    <!-- Tema Rengi -->
-    <meta name="theme-color" content="#0f172a">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="İddaa AI">
-    <script>
-      // Otomatik "Yükle" banner'ını engelle; istenirse butonla manuel kurulum yapılır
-      window.__deferredInstall = null;
-      window.addEventListener('beforeinstallprompt', function(e) {
-        e.preventDefault();
-        window.__deferredInstall = e;
-        return false;
-      });
-      window.installPwaNow = async function() {
-        if (window.__deferredInstall) {
-          window.__deferredInstall.prompt();
-          await window.__deferredInstall.userChoice;
-          window.__deferredInstall = null;
-        } else {
-          alert('Chrome sağ üst ⋮ menüsü → "Uygulamayı yükle" veya "Ana ekrana ekle" seçeneğine dokun.');
-        }
-      };
-      // Service Worker kayıtlıysa kaldır (install prompt kaynağı)
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-          for (var r of registrations) { r.unregister(); }
-        });
-      }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>İddaa AI Pro - 5 Maçlık Analiz Kuponları (50 TL)</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -46,14 +12,14 @@
             theme: {
                 extend: {
                     colors: {
-                        darkbg: '#080d1a',
+                        darkbg: '#0a0f1d',
                         cardbg: '#131b2e',
                         cardborder: '#1f2d47',
-                        appgreen: '#00875a',
-                        accentgreen: '#10b981',
                         accentblue: '#3b82f6',
+                        accentemerald: '#10b981',
+                        accentpurple: '#8b5cf6',
                         accentrose: '#f43f5e',
-                        accentgold: '#f59e0b'
+                        accentamber: '#f59e0b'
                     }
                 }
             }
@@ -61,226 +27,339 @@
     </script>
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/style.css?v=20261030_v8">
 </head>
-<body class="bg-darkbg text-slate-100 min-h-screen font-sans antialiased selection:bg-rose-500 selection:text-white pb-20 md:pb-6">
+<body class="bg-darkbg text-slate-100 min-h-screen font-sans antialiased selection:bg-purple-500 selection:text-white pb-16">
 
     <!-- Top Navigation Header -->
-    <header class="border-b border-cardborder bg-cardbg/90 backdrop-blur-md sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 via-amber-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-rose-600/20">
-                    <i class="fa-solid fa-trophy text-white text-lg"></i>
+    <header class="border-b border-cardborder bg-cardbg/95 backdrop-blur-md sticky top-0 z-40 w-full max-w-full overflow-hidden">
+        <div class="max-w-7xl mx-auto px-2.5 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-1 sm:gap-2 w-full">
+            <!-- Logo & Brand -->
+            <div class="flex items-center space-x-2 sm:space-x-3 shrink min-w-0">
+                <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-purple-600 via-indigo-600 to-emerald-500 flex items-center justify-center shadow-lg shadow-purple-600/30 shrink-0">
+                    <i class="fa-solid fa-brain text-white text-sm sm:text-lg"></i>
                 </div>
-                <div>
-                    <div class="flex items-center space-x-2">
-                        <span class="text-xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-400">İDDAA AI PRO</span>
-                        <span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase tracking-widest hidden sm:inline">YÜKSEK GÜVEN</span>
+                <div class="min-w-0">
+                    <div class="flex items-center space-x-1 sm:space-x-2 flex-wrap">
+                        <span class="text-sm sm:text-xl font-black tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-teal-300 to-amber-400 truncate">İDDAA AI PRO</span>
+                        <span class="px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/40 uppercase tracking-wider shrink-0">5 MAÇ</span>
                     </div>
-                    <p class="text-xs text-slate-400 hidden sm:block">Yüksek Güvenli Net Sonuçlar & 4 Maç Evet/Evet Ortak Havuz Analizi</p>
+                    <p class="text-[10px] text-slate-400 hidden md:block">Dixon-Coles & Poisson xG Modeli • 🇹🇷 Türkiye Yasal İddaa (MBS & 50 TL) Standartları</p>
                 </div>
             </div>
 
-            <!-- Header Right: Arama, Mobile QR, Nesine Sync Button & Navigation Tabs -->
-            <div class="flex items-center space-x-2 sm:space-x-3">
-                
-                <!-- Arama Butonu (Nesine, Misli, Bilyoner, Birebin, Oley, İddaa, Tipico) -->
-                <button onclick="openSearchModal()" title="Maç, Takım veya İddaa Sitelerinde Ara" class="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
-                    <i class="fa-solid fa-magnifying-glass text-amber-400"></i>
-                    <span>Ara & Siteler</span>
+            <!-- Desktop Navigation Tabs -->
+            <nav class="hidden lg:flex items-center space-x-1 bg-slate-900/90 p-1 rounded-xl border border-cardborder shadow-inner">
+                <button onclick="switchTab('coupons')" id="tab-btn-coupons" class="tab-btn active px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center space-x-1.5 text-white bg-slate-800 border border-slate-700">
+                    <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                    <span>Güvenli Kuponlar</span>
+                </button>
+                <button onclick="switchTab('matches')" id="tab-btn-matches" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center space-x-1.5">
+                    <i class="fa-solid fa-futbol text-blue-400"></i>
+                    <span>Dünya Bülteni & Son 5 Maç</span>
+                </button>
+                <button onclick="switchTab('iyms_table')" id="tab-btn-iyms_table" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center space-x-1.5">
+                    <i class="fa-solid fa-table-cells text-amber-400"></i>
+                    <span>İY MS Skor Tablosu</span>
+                </button>
+                <button onclick="switchTab('wizard')" id="tab-btn-wizard" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition-all flex items-center space-x-1.5">
+                    <i class="fa-solid fa-wand-magic-sparkles text-purple-400"></i>
+                    <span>Özel Kupon</span>
+                </button>
+            </nav>
+
+            <!-- Header Action Buttons (Fully Compact Mobile-First) -->
+            <div class="flex items-center space-x-1 sm:space-x-2 shrink-0">
+                <!-- Mobil Uygulama & Kurulum -->
+                <a href="/playstore" title="Mobil Uygulama / PWA Kurulumu" class="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/35 text-emerald-300 border border-emerald-500/40 text-xs font-bold transition flex items-center gap-1 shadow-sm active:scale-95">
+                    <i class="fa-solid fa-mobile-screen-button text-emerald-400 text-xs sm:text-sm"></i>
+                    <span class="hidden sm:inline">Mobil</span>
+                </a>
+
+                <!-- En Çok Kazandıran Siteler Butonu -->
+                <button onclick="openTopPayoutsModal()" title="Dünyanın En Çok Kazandıran Siteleri (RTP Analizi)" class="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-gradient-to-r from-amber-500/20 via-yellow-500/20 to-amber-500/20 hover:from-amber-500/35 hover:to-yellow-500/35 text-amber-300 border border-amber-500/40 text-xs font-bold transition flex items-center gap-1 shadow-sm active:scale-95">
+                    <i class="fa-solid fa-crown text-amber-400 text-xs sm:text-sm"></i>
+                    <span class="hidden sm:inline">Siteler</span>
                 </button>
 
-                <!-- Kuponları Güncelle Butonu (Mobil & Masaüstü) -->
-                <button onclick="refreshAllCoupons()" id="sync-nesine-btn" title="Canlı bültenden yeni kuponlar ve analizler üret" class="px-2.5 sm:px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600/30 via-teal-600/30 to-emerald-600/30 hover:from-emerald-600/50 hover:to-teal-600/50 text-emerald-300 border border-emerald-500/50 text-xs font-black transition flex items-center gap-1.5 shadow-sm active:scale-95">
-                    <i class="fa-solid fa-arrows-rotate text-emerald-400" id="sync-icon"></i>
-                    <span id="sync-text" class="text-[11px] sm:text-xs">Kuponları Güncelle</span>
-                    <span id="live-count-badge" class="px-1.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 text-[9px] font-black hidden sm:inline">CANLI</span>
+                <!-- Ara Butonu -->
+                <button onclick="openSearchModal()" title="Tüm bültende ve sitelerde ara" class="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-cardborder text-xs font-bold transition flex items-center gap-1 active:scale-95">
+                    <i class="fa-solid fa-magnifying-glass text-slate-400 text-xs sm:text-sm"></i>
+                    <span class="hidden sm:inline">Ara</span>
                 </button>
 
-                <!-- Desktop Navigation Tabs -->
-                <nav class="hidden md:flex items-center space-x-1 sm:space-x-2 bg-slate-900/80 p-1 rounded-xl border border-cardborder">
-                    <button onclick="switchTab('coupons')" id="tab-btn-coupons" class="tab-btn active px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center space-x-2">
-                        <i class="fa-solid fa-shield-halved text-emerald-400"></i>
-                        <span>Güvenli Kuponlar</span>
-                    </button>
-                    <button onclick="switchTab('matches')" id="tab-btn-matches" class="tab-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-400 hover:text-white transition-all flex items-center space-x-2">
-                        <i class="fa-solid fa-futbol"></i>
-                        <span>Dünya Bülteni & Son 5 Maç</span>
-                    </button>
-                    <button onclick="switchTab('wizard')" id="tab-btn-wizard" class="tab-btn px-3 sm:px-4 py-1.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-400 hover:text-white transition-all flex items-center space-x-2">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>Özel Kupon</span>
-                    </button>
-                </nav>
+                <!-- Kuponları Güncelle Butonu -->
+                <button onclick="refreshAllCoupons()" id="sync-nesine-btn" title="Canlı bültenden 5 maçlık kuponları güncelle" class="p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-gradient-to-r from-purple-600/30 via-indigo-600/30 to-purple-600/30 hover:from-purple-600/50 hover:to-indigo-600/50 text-purple-200 border border-purple-500/50 text-xs font-black transition flex items-center gap-1 shadow-sm active:scale-95">
+                    <i class="fa-solid fa-arrows-rotate text-purple-300 text-xs sm:text-sm" id="sync-icon"></i>
+                    <span id="sync-text" class="hidden sm:inline">Güncelle</span>
+                    <span id="live-count-badge" class="px-1 py-0.5 rounded-full bg-emerald-500 text-slate-950 text-[8px] sm:text-[9px] font-black">228+</span>
+                </button>
             </div>
+        </div>
+
+        <!-- Mobile Navigation Tabs (visible only on small screens) -->
+        <div class="lg:hidden flex items-center justify-around border-t border-cardborder bg-slate-900/95 px-2 py-1.5 text-xs">
+            <button onclick="switchTab('coupons')" id="mob-tab-btn-coupons" class="flex flex-col items-center py-1 px-2 text-emerald-400 font-bold">
+                <i class="fa-solid fa-shield-halved text-sm mb-0.5"></i>
+                <span class="text-[10px]">Kuponlar</span>
+            </button>
+            <button onclick="switchTab('matches')" id="mob-tab-btn-matches" class="flex flex-col items-center py-1 px-2 text-slate-400 font-medium">
+                <i class="fa-solid fa-futbol text-sm mb-0.5"></i>
+                <span class="text-[10px]">Bülten</span>
+            </button>
+            <button onclick="switchTab('iyms_table')" id="mob-tab-btn-iyms_table" class="flex flex-col items-center py-1 px-2 text-slate-400 font-medium">
+                <i class="fa-solid fa-table-cells text-sm mb-0.5"></i>
+                <span class="text-[10px]">İY/MS Tablo</span>
+            </button>
+            <button onclick="switchTab('wizard')" id="mob-tab-btn-wizard" class="flex flex-col items-center py-1 px-2 text-slate-400 font-medium">
+                <i class="fa-solid fa-wand-magic-sparkles text-sm mb-0.5"></i>
+                <span class="text-[10px]">Sihirbaz</span>
+            </button>
         </div>
     </header>
 
-    <!-- Bahis Platformları Barı - Dünya Geneli -->
-    <div class="bg-slate-950/85 border-b border-cardborder py-2 px-3 overflow-x-auto scrollbar-none shadow-sm">
-        <div class="flex items-center gap-2 text-xs whitespace-nowrap">
-            <div class="flex items-center gap-1.5 text-slate-400 font-bold shrink-0">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                <span class="text-slate-300 text-[10px]">BAHİS PLATFORMLARI:</span>
+        <!-- ================= BAHİS PLATFORMLARI (DÜNYA & TÜRKİYE ORANLARI - ALT ALTA RESPONSIVE IZGARA) ================= -->
+    <div class="bg-slate-950/95 border-b border-cardborder py-2.5 px-2 sm:px-4 shadow-md w-full max-w-full">
+        <div class="max-w-7xl mx-auto">
+            <!-- Header Row with title and mobile toggle -->
+            <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span class="text-amber-300 text-xs sm:text-sm uppercase tracking-wider font-black flex items-center gap-1.5">
+                        <i class="fa-solid fa-bolt text-amber-400"></i> CANLI SİTELER (TIKLA MAÇLARI GÖR):
+                    </span>
+                    <span class="text-[11px] text-slate-400 font-bold hidden md:inline">• En Çok Kazandıran Global & Türkiye Oranları</span>
+                </div>
+                <!-- Mobile Collapse/Expand Toggle -->
+                <button onclick="togglePlatformsBar()" id="btn-toggle-platforms" class="sm:hidden px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 font-bold text-[11px] flex items-center gap-1.5 active:scale-95 cursor-pointer">
+                    <span id="text-toggle-platforms">Daralt</span>
+                    <i id="icon-toggle-platforms" class="fa-solid fa-chevron-up text-[10px]"></i>
+                </button>
             </div>
-            <!-- 🇹🇷 Türkiye -->
-            <a href="https://www.nesine.com/iddaa/futbol" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-emerald-950/60 hover:bg-emerald-800/80 text-emerald-300 border border-emerald-600/50 font-bold transition text-[10px]">🟢 Nesine</a>
-            <a href="https://www.misli.com/iddaa/futbol" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-yellow-950/60 hover:bg-yellow-800/80 text-yellow-300 border border-yellow-600/50 font-bold transition text-[10px]">🟡 Misli</a>
-            <a href="https://www.bilyoner.com/iddaa" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-blue-950/60 hover:bg-blue-800/80 text-blue-300 border border-blue-600/50 font-bold transition text-[10px]">🔵 Bilyoner</a>
-            <a href="https://www.tuttur.com/" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-orange-950/60 hover:bg-orange-800/80 text-orange-300 border border-orange-600/50 font-bold transition text-[10px]">🟠 Tuttur</a>
-            <a href="https://www.oley.com/iddaa" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-teal-950/60 hover:bg-teal-800/80 text-teal-300 border border-teal-600/50 font-bold transition text-[10px]">🟢 Oley</a>
-            <a href="https://www.iddaa.com/program/futbol" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 font-bold transition text-[10px]">🇹🇷 İddaa</a>
-            <span class="text-slate-700 text-xs shrink-0">|</span>
-            <!-- 🇬🇧 İngiltere -->
-            <a href="https://www.bet365.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-green-950/60 hover:bg-green-800/80 text-green-300 border border-green-600/50 font-bold transition text-[10px]">🇬🇧 Bet365</a>
-            <a href="https://www.williamhill.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-sky-950/60 hover:bg-sky-800/80 text-sky-300 border border-sky-600/50 font-bold transition text-[10px]">🇬🇧 William Hill</a>
-            <a href="https://www.betfair.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-yellow-950/60 hover:bg-yellow-800/80 text-yellow-300 border border-yellow-600/50 font-bold transition text-[10px]">🇬🇧 Betfair</a>
-            <a href="https://www.paddypower.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-lime-950/60 hover:bg-lime-800/80 text-lime-300 border border-lime-600/50 font-bold transition text-[10px]">🇮🇪 Paddy Power</a>
-            <a href="https://m.skybet.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-cyan-950/60 hover:bg-cyan-800/80 text-cyan-300 border border-cyan-600/50 font-bold transition text-[10px]">🇬🇧 Sky Bet</a>
-            <a href="https://www.ladbrokes.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-red-950/60 hover:bg-red-800/80 text-red-300 border border-red-600/50 font-bold transition text-[10px]">🇬🇧 Ladbrokes</a>
-            <a href="https://www.coral.co.uk" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-pink-950/60 hover:bg-pink-800/80 text-pink-300 border border-pink-600/50 font-bold transition text-[10px]">🇬🇧 Coral</a>
-            <a href="https://www.betfred.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-purple-950/60 hover:bg-purple-800/80 text-purple-300 border border-purple-600/50 font-bold transition text-[10px]">🇬🇧 Betfred</a>
-            <a href="https://www.betvictor.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-indigo-950/60 hover:bg-indigo-800/80 text-indigo-300 border border-indigo-600/50 font-bold transition text-[10px]">🇬🇧 BetVictor</a>
-            <span class="text-slate-700 text-xs shrink-0">|</span>
-            <!-- 🇪🇺 Avrupa -->
-            <a href="https://www.winamax.fr" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-red-950/60 hover:bg-red-800/80 text-red-300 border border-red-600/50 font-bold transition text-[10px]">🇫🇷 Winamax</a>
-            <a href="https://www.betclic.fr" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-blue-950/60 hover:bg-blue-800/80 text-blue-300 border border-blue-600/50 font-bold transition text-[10px]">🇫🇷 Betclic</a>
-            <a href="https://sports.tipico.de/tr/live/default" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-rose-950/70 hover:bg-rose-800/80 text-rose-300 border border-rose-600/50 font-bold transition text-[10px]">🇩🇪 Tipico</a>
-            <a href="https://www.betsson.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-purple-950/60 hover:bg-purple-800/80 text-purple-300 border border-purple-600/50 font-bold transition text-[10px]">🇸🇪 Betsson</a>
-            <a href="https://www.leovegas.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-800/80 text-amber-300 border border-amber-600/50 font-bold transition text-[10px]">🇸🇪 LeoVegas</a>
-            <a href="https://www.stoiximan.gr" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-blue-950/60 hover:bg-blue-800/80 text-blue-300 border border-blue-600/50 font-bold transition text-[10px]">🇬🇷 Stoiximan</a>
-            <a href="https://superbet.ro" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-yellow-950/60 hover:bg-yellow-800/80 text-yellow-300 border border-yellow-600/50 font-bold transition text-[10px]">🇷🇴 Superbet</a>
-            <a href="https://www.sts.pl" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-red-950/60 hover:bg-red-800/80 text-red-300 border border-red-600/50 font-bold transition text-[10px]">🇵🇱 STS</a>
-            <a href="https://www.tipsport.cz" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-blue-950/60 hover:bg-blue-800/80 text-blue-300 border border-blue-600/50 font-bold transition text-[10px]">🇨🇿 Tipsport</a>
-            <span class="text-slate-700 text-xs shrink-0">|</span>
-            <!-- 🇺🇸 ABD -->
-            <a href="https://sportsbook.draftkings.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-green-950/60 hover:bg-green-800/80 text-green-300 border border-green-600/50 font-bold transition text-[10px]">🇺🇸 DraftKings</a>
-            <a href="https://sportsbook.fanduel.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-blue-950/60 hover:bg-blue-800/80 text-blue-300 border border-blue-600/50 font-bold transition text-[10px]">🇺🇸 FanDuel</a>
-            <a href="https://sports.betmgm.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-amber-950/60 hover:bg-amber-800/80 text-amber-300 border border-amber-600/50 font-bold transition text-[10px]">🇺🇸 BetMGM</a>
-            <a href="https://www.caesars.com/sportsbook-and-casino" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-purple-950/60 hover:bg-purple-800/80 text-purple-300 border border-purple-600/50 font-bold transition text-[10px]">🇺🇸 Caesars</a>
-            <span class="text-slate-700 text-xs shrink-0">|</span>
-            <!-- 🌍 Afrika -->
-            <a href="https://web.bet9ja.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-green-950/60 hover:bg-green-800/80 text-green-300 border border-green-600/50 font-bold transition text-[10px]">🇳🇬 Bet9ja</a>
-            <a href="https://www.sportybet.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-orange-950/60 hover:bg-orange-800/80 text-orange-300 border border-orange-600/50 font-bold transition text-[10px]">🌍 SportyBet</a>
-            <a href="https://www.hollywoodbets.net" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-pink-950/60 hover:bg-pink-800/80 text-pink-300 border border-pink-600/50 font-bold transition text-[10px]">🇿🇦 Hollywoodbets</a>
-            <a href="https://www.sportpesa.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-red-950/60 hover:bg-red-800/80 text-red-300 border border-red-600/50 font-bold transition text-[10px]">🇰🇪 SportPesa</a>
-            <span class="text-slate-700 text-xs shrink-0">|</span>
-            <!-- 🇦🇺 Avustralya -->
-            <a href="https://www.sportsbet.com.au" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-blue-950/60 hover:bg-blue-800/80 text-blue-300 border border-blue-600/50 font-bold transition text-[10px]">🇦🇺 Sportsbet</a>
-            <a href="https://www.tab.com.au" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-yellow-950/60 hover:bg-yellow-800/80 text-yellow-300 border border-yellow-600/50 font-bold transition text-[10px]">🇦🇺 TAB</a>
-            <span class="text-slate-700 text-xs shrink-0">|</span>
-            <!-- 🌐 Global -->
-            <a href="https://www.pinnacle.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-indigo-950/60 hover:bg-indigo-800/80 text-indigo-300 border border-indigo-600/50 font-bold transition text-[10px]">🌐 Pinnacle</a>
-            <a href="https://1xbet.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-blue-950/60 hover:bg-blue-800/80 text-blue-300 border border-blue-600/50 font-bold transition text-[10px]">🌐 1xBet</a>
-            <a href="https://www.unibet.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-green-950/60 hover:bg-green-800/80 text-green-300 border border-green-600/50 font-bold transition text-[10px]">🌐 Unibet</a>
-            <a href="https://sports.bwin.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-orange-950/60 hover:bg-orange-800/80 text-orange-300 border border-orange-600/50 font-bold transition text-[10px]">🌐 Bwin</a>
-            <a href="https://www.betonline.ag" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-gray-800 hover:bg-gray-700 text-gray-300 border border-gray-600 font-bold transition text-[10px]">🌐 BetOnline</a>
-            <a href="https://www.bovada.lv" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-red-950/60 hover:bg-red-800/80 text-red-300 border border-red-600/50 font-bold transition text-[10px]">🌐 Bovada</a>
-            <!-- Latin Amerika -->
-            <a href="https://www.caliente.mx" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-red-950/60 hover:bg-red-800/80 text-red-300 border border-red-600/50 font-bold transition text-[10px]">🇲🇽 Caliente</a>
-            <a href="https://www.betano.com.br" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-blue-950/60 hover:bg-blue-800/80 text-blue-300 border border-blue-600/50 font-bold transition text-[10px]">🇧🇷 Betano BR</a>
-            <!-- Asya -->
-            <a href="https://www.dafabet.com" target="_blank" rel="noopener" class="px-2 py-1 rounded-lg bg-yellow-950/60 hover:bg-yellow-800/80 text-yellow-300 border border-yellow-600/50 font-bold transition text-[10px]">🌏 Dafabet</a>
-            <!-- Arama butonu -->
-            <button onclick="openSearchModal()" class="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-bold flex items-center gap-1 shrink-0 transition text-[10px] ml-2">
-                <i class="fa-solid fa-magnifying-glass text-[10px]"></i>
-                <span>Hepsinde Ara</span>
-            </button>
+
+            <!-- Platform Buttons Grid (Mobilde 2'li Izgara, Masaüstünde 8'li Izgara - Sıfır Yana Kayma, Tamamen Alt Alta) -->
+            <div id="platforms-container" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-1.5 w-full">
+                <!-- 1. Pinnacle -->
+                <button onclick="openPlatformMatches('pinnacle', 'Pinnacle', '98.4')" class="platform-chip p-2 rounded-xl bg-amber-950/70 hover:bg-amber-800 text-amber-200 border border-amber-500/60 font-black transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Pinnacle - %98.4 RTP ile dünyanın en yüksek oranları">
+                    <span class="truncate">👑 Pinnacle</span>
+                    <span class="text-emerald-400 font-black ml-1 text-[11px] shrink-0">%98.4</span>
+                </button>
+
+                <!-- 2. Betfair -->
+                <button onclick="openPlatformMatches('betfair', 'Betfair Exchange', '98.1')" class="platform-chip p-2 rounded-xl bg-yellow-950/70 hover:bg-yellow-800 text-yellow-200 border border-yellow-500/60 font-black transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Betfair Exchange - Dünyanın en büyük bahis borsası">
+                    <span class="truncate">💱 Betfair</span>
+                    <span class="text-emerald-400 font-black ml-1 text-[11px] shrink-0">%98.1</span>
+                </button>
+
+                <!-- 3. Bet365 -->
+                <button onclick="openPlatformMatches('bet365', 'Bet365', '96.2')" class="platform-chip p-2 rounded-xl bg-emerald-950/70 hover:bg-emerald-800 text-emerald-200 border border-emerald-500/60 font-black transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Bet365 - Dünyanın en popüler bahis platformu">
+                    <span class="truncate">⭐ Bet365</span>
+                    <span class="text-emerald-400 font-black ml-1 text-[11px] shrink-0">%96.2</span>
+                </button>
+
+                <!-- 4. 1xBet -->
+                <button onclick="openPlatformMatches('1xbet', '1xBet', '97.2')" class="platform-chip p-2 rounded-xl bg-blue-950/70 hover:bg-blue-800 text-blue-200 border border-blue-500/60 font-black transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="1xBet - Yüksek marj ve geniş bülten">
+                    <span class="truncate">⚡ 1xBet</span>
+                    <span class="text-emerald-400 font-black ml-1 text-[11px] shrink-0">%97.2</span>
+                </button>
+
+                <!-- 5. Tipico -->
+                <button onclick="openPlatformMatches('tipico', 'Tipico', '96.5')" class="platform-chip p-2 rounded-xl bg-rose-950/70 hover:bg-rose-800 text-rose-200 border border-rose-500/60 font-black transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Tipico - Almanya lider platformu">
+                    <span class="truncate">🇩🇪 Tipico</span>
+                    <span class="text-emerald-400 font-black ml-1 text-[11px] shrink-0">%96.5</span>
+                </button>
+
+                <!-- 6. Nesine -->
+                <button onclick="openPlatformMatches('nesine', 'Nesine', '91.2')" class="platform-chip p-2 rounded-xl bg-emerald-950/60 hover:bg-emerald-800/80 text-emerald-300 border border-emerald-600/50 font-bold transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Nesine - Spor Toto Yasal">
+                    <span class="truncate">🇹🇷 Nesine</span>
+                    <span class="text-slate-400 font-bold ml-1 text-[10.5px] shrink-0">%91.2</span>
+                </button>
+
+                <!-- 7. Misli -->
+                <button onclick="openPlatformMatches('misli', 'Misli', '91.0')" class="platform-chip p-2 rounded-xl bg-yellow-950/60 hover:bg-yellow-800/80 text-yellow-300 border border-yellow-600/50 font-bold transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Misli - Canlı İddaa">
+                    <span class="truncate">🇹🇷 Misli</span>
+                    <span class="text-slate-400 font-bold ml-1 text-[10.5px] shrink-0">%91.0</span>
+                </button>
+
+                <!-- 8. Bilyoner -->
+                <button onclick="openPlatformMatches('bilyoner', 'Bilyoner', '90.8')" class="platform-chip p-2 rounded-xl bg-blue-950/60 hover:bg-blue-800/80 text-blue-300 border border-blue-600/50 font-bold transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Bilyoner - İlk İddaa Platformu">
+                    <span class="truncate">🇹🇷 Bilyoner</span>
+                    <span class="text-slate-400 font-bold ml-1 text-[10.5px] shrink-0">%90.8</span>
+                </button>
+
+                <!-- 9. Tuttur -->
+                <button onclick="openPlatformMatches('tuttur', 'Tuttur', '90.5')" class="platform-chip p-2 rounded-xl bg-orange-950/60 hover:bg-orange-800/80 text-orange-300 border border-orange-600/50 font-bold transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Tuttur - Sosyal Bahis">
+                    <span class="truncate">🇹🇷 Tuttur</span>
+                    <span class="text-slate-400 font-bold ml-1 text-[10.5px] shrink-0">%90.5</span>
+                </button>
+
+                <!-- 10. Oley -->
+                <button onclick="openPlatformMatches('oley', 'Oley', '90.5')" class="platform-chip p-2 rounded-xl bg-teal-950/60 hover:bg-teal-800/80 text-teal-300 border border-teal-600/50 font-bold transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Oley.com">
+                    <span class="truncate">🇹🇷 Oley</span>
+                    <span class="text-slate-400 font-bold ml-1 text-[10.5px] shrink-0">%90.5</span>
+                </button>
+
+                <!-- 11. İddaa -->
+                <button onclick="openPlatformMatches('iddaa', 'İddaa Resmi', '89.5')" class="platform-chip p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-bold transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Resmi İddaa Bülteni">
+                    <span class="truncate">🇹🇷 İddaa</span>
+                    <span class="text-slate-400 font-bold ml-1 text-[10.5px] shrink-0">%89.5</span>
+                </button>
+
+                <!-- 12. William Hill -->
+                <button onclick="openPlatformMatches('williamhill', 'William Hill', '95.5')" class="platform-chip p-2 rounded-xl bg-indigo-950/60 hover:bg-indigo-800 text-indigo-300 border border-indigo-700/50 font-bold transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="William Hill (İngiltere)">
+                    <span class="truncate">🇬🇧 William Hill</span>
+                    <span class="text-slate-400 font-bold ml-1 text-[10.5px] shrink-0">%95.5</span>
+                </button>
+
+                <!-- 13. Unibet -->
+                <button onclick="openPlatformMatches('unibet', 'Unibet', '96.0')" class="platform-chip p-2 rounded-xl bg-emerald-950/60 hover:bg-emerald-800 text-emerald-300 border border-emerald-700/50 font-bold transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Unibet (Avrupa)">
+                    <span class="truncate">🇲🇹 Unibet</span>
+                    <span class="text-slate-400 font-bold ml-1 text-[10.5px] shrink-0">%96.0</span>
+                </button>
+
+                <!-- 14. Bwin -->
+                <button onclick="openPlatformMatches('bwin', 'Bwin', '94.5')" class="platform-chip p-2 rounded-xl bg-amber-950/60 hover:bg-amber-800 text-amber-300 border border-amber-700/50 font-bold transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Bwin">
+                    <span class="truncate">🇦🇹 Bwin</span>
+                    <span class="text-slate-400 font-bold ml-1 text-[10.5px] shrink-0">%94.5</span>
+                </button>
+
+                <!-- 15. Betano -->
+                <button onclick="openPlatformMatches('betano', 'Betano', '95.4')" class="platform-chip p-2 rounded-xl bg-orange-950/60 hover:bg-orange-800 text-orange-300 border border-orange-700/50 font-bold transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Betano">
+                    <span class="truncate">🇧🇷 Betano</span>
+                    <span class="text-slate-400 font-bold ml-1 text-[10.5px] shrink-0">%95.4</span>
+                </button>
+
+                <!-- 16. Tümünde Ara Butonu -->
+                <button onclick="openSearchModal()" class="platform-chip p-2 rounded-xl bg-purple-900/60 hover:bg-purple-800 text-purple-200 border border-purple-500/60 font-black transition text-xs flex items-center justify-between shadow-sm active:scale-95 cursor-pointer" title="Tüm Sitelerde Maç ve Oran Ara">
+                    <span class="truncate"><i class="fa-solid fa-magnifying-glass text-purple-400 mr-1"></i> Tümünde Ara</span>
+                    <span class="text-purple-300 font-black ml-1 text-[11px] shrink-0">15 Site</span>
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- Main Container -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+    <main class="w-full max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-6 overflow-x-hidden">
 
-        <!-- ================= TAB 1: GÜNÜN & YARININ EFSANE KUPONLARI ================= -->
+        <!-- ================= TAB 1: GÜVENLİ KUPONLAR (6 ANA MODEL • 5 MAÇ) ================= -->
         <section id="section-coupons" class="tab-content">
             
-            <!-- Header and Date Switcher -->
-            <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 mb-6">
-                <div>
-                    <div class="flex items-center gap-2 mb-1">
-                        <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xs border border-emerald-500/30 flex items-center gap-1.5">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> CANLI OYNANABİLİR HAZIR KUPONLAR
-                        </span>
-                        <span class="text-xs text-slate-400 font-mono">🌐 Tüm Siteler Ortak Havuzu (50+ Platform)</span>
-                    </div>
-                    <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
-                        <i class="fa-solid fa-shield-halved text-emerald-400"></i>
-                        <span>Yüksek Güvenli Net, Kontrgaranti & İY/MS Kuponları</span>
+            <!-- 6 Ana Model Seçim Butonları (Her Biri Tam 5 Maçlık) -->
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="text-sm font-black text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-purple-400"></i>
+                        <span>5 Maçlık Analiz Kupon Modelleri (50 TL Standart)</span>
                     </h2>
-                    <p class="text-xs sm:text-sm text-slate-400 mt-1">Güven ortalaması yüksek <strong>Net Sonuçlar</strong>, <strong>Kontrgaranti (1X0 • 2X0 • 1X2)</strong>, <strong>4 Maç Evet/Evet</strong> ve özel <strong>İY/MS (1/0 • 2/0 • 1/2 • 2/1)</strong> kombinasyonları <strong>50 TL</strong> kupon bedeline göre hazırlandı.</p>
+                    <span class="text-[11px] text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                        ⚡ Anında Yükleme (Turbo)
+                    </span>
                 </div>
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-1.5 sm:gap-2 bg-slate-900/95 p-2 rounded-2xl border border-cardborder shadow-xl w-full">
+                    <!-- 1. İY/MS (1/2, 1/0, 2/0, 0/2, 0/1, 2/1) -->
+                    <button onclick="switchCouponDay('iy_ms')" id="btn-coupon-iy_ms" class="coupon-nav-btn active w-full p-2 sm:p-2.5 rounded-xl text-left border border-purple-500 bg-purple-600/25 text-white transition flex flex-col justify-between shadow-md snap-start cursor-pointer">
+                        <div class="text-[11px] font-black text-purple-300 flex items-center gap-1.5 mb-0.5">
+                            <i class="fa-solid fa-repeat text-purple-400"></i> İY / MS
+                        </div>
+                        <div class="text-[9.5px] text-slate-300 leading-tight">1/2, 2/1, 1/0, 0/1, 0/2</div>
+                    </button>
 
-                <!-- Ana Güvenli Net Kuponlar (En Fazla 4 Maç) -->
-                <div class="flex flex-wrap items-center gap-1.5 bg-slate-900 p-1.5 rounded-2xl border border-cardborder shadow-inner">
-                    <button onclick="switchCouponDay('net_guven')" id="day-btn-net_guven" class="day-btn active px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black transition flex items-center space-x-1.5 bg-emerald-600 text-white shadow-md">
-                        <i class="fa-solid fa-shield-halved text-white"></i>
-                        <span>🛡️ YÜKSEK GÜVEN NET (4 MAÇ)</span>
+                    <!-- 2. Doğru Skor Tahmini -->
+                    <button onclick="switchCouponDay('dogru_skor')" id="btn-coupon-dogru_skor" class="coupon-nav-btn w-full p-2 sm:p-2.5 rounded-xl text-left border border-cardborder bg-cardbg hover:border-slate-600 text-slate-300 hover:text-white transition flex flex-col justify-between snap-start cursor-pointer">
+                        <div class="text-[11px] font-black text-rose-300 flex items-center gap-1.5 mb-0.5">
+                            <i class="fa-solid fa-bullseye text-rose-400"></i> Doğru Skor
+                        </div>
+                        <div class="text-[9.5px] text-slate-400 leading-tight">Maçın Tam Skoru</div>
                     </button>
-                    <button onclick="switchCouponDay('ust_25_net')" id="day-btn-ust_25_net" class="day-btn px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center space-x-1.5 text-slate-300 hover:text-white">
-                        <i class="fa-solid fa-fire text-amber-400"></i>
-                        <span>🔥 4 MAÇ 2,5 ÜST</span>
+
+                    <!-- 3. İY / MS Skoru Kombinasyonları -->
+                    <button onclick="switchCouponDay('iy_ms_skor')" id="btn-coupon-iy_ms_skor" class="coupon-nav-btn w-full p-2 sm:p-2.5 rounded-xl text-left border border-cardborder bg-cardbg hover:border-slate-600 text-slate-300 hover:text-white transition flex flex-col justify-between snap-start cursor-pointer">
+                        <div class="text-[11px] font-black text-amber-300 flex items-center gap-1.5 mb-0.5">
+                            <i class="fa-solid fa-layer-group text-amber-400"></i> İY/MS Skor
+                        </div>
+                        <div class="text-[9.5px] text-slate-400 leading-tight">Devre & Maç Skoru</div>
                     </button>
-                    <button onclick="switchCouponDay('kg_evet_net')" id="day-btn-kg_evet_net" class="day-btn px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center space-x-1.5 text-slate-300 hover:text-white">
-                        <i class="fa-solid fa-circle-check text-teal-400"></i>
-                        <span>✅ 4 MAÇ KG EVET</span>
+
+                    <!-- 4. Sistem Kuponları -->
+                    <button onclick="switchCouponDay('sistem')" id="btn-coupon-sistem" class="coupon-nav-btn w-full p-2 sm:p-2.5 rounded-xl text-left border border-cardborder bg-cardbg hover:border-slate-600 text-slate-300 hover:text-white transition flex flex-col justify-between snap-start cursor-pointer">
+                        <div class="text-[11px] font-black text-indigo-300 flex items-center gap-1.5 mb-0.5">
+                            <i class="fa-solid fa-calculator text-indigo-400"></i> Sistem 3,4,5
+                        </div>
+                        <div class="text-[9.5px] text-slate-400 leading-tight">En Az 3 İsabet</div>
                     </button>
-                    <button onclick="switchCouponDay('kontrgaranti')" id="day-btn-kontrgaranti" class="day-btn px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center space-x-1.5 text-slate-300 hover:text-white">
-                        <i class="fa-solid fa-lock text-cyan-400"></i>
-                        <span>🔒 KONTRGARANTİ ÇŞ (4 MAÇ)</span>
+
+                    <!-- 5. Yüksek Oranlı Kupon (1M Hedefi) -->
+                    <button onclick="switchCouponDay('yuksek_oran')" id="btn-coupon-yuksek_oran" class="coupon-nav-btn w-full p-2 sm:p-2.5 rounded-xl text-left border border-cardborder bg-cardbg hover:border-slate-600 text-slate-300 hover:text-white transition flex flex-col justify-between snap-start cursor-pointer">
+                        <div class="text-[11px] font-black text-purple-300 flex items-center gap-1.5 mb-0.5">
+                            <i class="fa-solid fa-gem text-purple-400 animate-pulse"></i> Yüksek Oran
+                        </div>
+                        <div class="text-[9.5px] text-slate-400 leading-tight">50 TL → ~1M Hedef</div>
                     </button>
-                    <button onclick="switchCouponDay('today')" id="day-btn-today" class="day-btn px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center space-x-1.5 text-slate-300 hover:text-white">
-                        <i class="fa-regular fa-calendar-check text-blue-400"></i>
-                        <span id="label-today">Bugün Net (4 Maç)</span>
+
+                    <!-- 6. 0.5 / 1.5 / 2.5 / 3.5 Gol Üstü -->
+                    <button onclick="switchCouponDay('gol_ustu')" id="btn-coupon-gol_ustu" class="coupon-nav-btn w-full p-2 sm:p-2.5 rounded-xl text-left border border-cardborder bg-cardbg hover:border-slate-600 text-slate-300 hover:text-white transition flex flex-col justify-between snap-start cursor-pointer">
+                        <div class="text-[11px] font-black text-emerald-300 flex items-center gap-1.5 mb-0.5">
+                            <i class="fa-solid fa-futbol text-emerald-400"></i> Gol Üstü
+                        </div>
+                        <div class="text-[9.5px] text-slate-400 leading-tight">0.5 / 1.5 / 2.5 / 3.5</div>
                     </button>
-                    <button onclick="switchCouponDay('tomorrow')" id="day-btn-tomorrow" class="day-btn px-3 sm:px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center space-x-1.5 text-slate-300 hover:text-white">
-                        <i class="fa-regular fa-calendar-plus text-indigo-400"></i>
-                        <span id="label-tomorrow">Yarın Net (4 Maç)</span>
+
+                    <!-- 7. Evet / Evet -->
+                    <button onclick="switchCouponDay('evet_evet')" id="btn-coupon-evet_evet" class="coupon-nav-btn w-full p-2 sm:p-2.5 rounded-xl text-left border border-cardborder bg-cardbg hover:border-slate-600 text-slate-300 hover:text-white transition flex flex-col justify-between snap-start cursor-pointer">
+                        <div class="text-[11px] font-black text-teal-300 flex items-center gap-1.5 mb-0.5">
+                            <i class="fa-solid fa-check-double text-teal-400"></i> Evet / Evet
+                        </div>
+                        <div class="text-[9.5px] text-slate-400 leading-tight">Her İki Yarıda KG Var</div>
+                    </button>
+
+                    <!-- 8. Konti Garanti -->
+                    <button onclick="switchCouponDay('konti_garanti')" id="btn-coupon-konti_garanti" class="coupon-nav-btn w-full p-2 sm:p-2.5 rounded-xl text-left border border-cardborder bg-cardbg hover:border-slate-600 text-slate-300 hover:text-white transition flex flex-col justify-between snap-start cursor-pointer">
+                        <div class="text-[11px] font-black text-cyan-300 flex items-center gap-1.5 mb-0.5">
+                            <i class="fa-solid fa-shield-halved text-cyan-400"></i> Konti Garanti
+                        </div>
+                        <div class="text-[9.5px] text-slate-400 leading-tight">Süper Banko (%90+)</div>
                     </button>
                 </div>
             </div>
 
-            <!-- Alt Ek Kupon Modelleri (Kazanan 10 & Yüksek Oranlı Sistemler - En Fazla 4 Maç) -->
-            <div class="flex flex-wrap items-center gap-1.5 mb-4 px-3 py-2 rounded-xl bg-slate-900/60 border border-cardborder text-xs">
-                <span class="text-amber-400 font-bold mr-1 flex items-center gap-1">
-                    <i class="fa-solid fa-trophy text-amber-400"></i> Ek Kupon Modelleri (En Fazla 4 Maç):
-                </span>
-                <button onclick="switchCouponDay('aksam_300k')" id="day-btn-aksam_300k" class="day-btn px-2.5 py-1.5 rounded-lg text-xs font-bold transition text-amber-300 hover:text-white border border-amber-500/40 bg-amber-500/10">🏆 Kazanan 10 Hibrit (4 Maç)</button>
-                <button onclick="switchCouponDay('both_halves_kg')" id="day-btn-both_halves_kg" class="day-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-slate-300 hover:text-white">⚽ 4 Maç Evet/Evet</button>
-                <button onclick="switchCouponDay('iy_ms_12_21')" id="day-btn-iy_ms_12_21" class="day-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-slate-300 hover:text-white">⚡ İY/MS (1/2 • 2/1)</button>
-                <button onclick="switchCouponDay('iy_ms_10_20')" id="day-btn-iy_ms_10_20" class="day-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-slate-300 hover:text-white">🔄 İY/MS (1/0 • 2/0)</button>
-                <button onclick="switchCouponDay('capa_skor_kombine')" id="day-btn-capa_skor_kombine" class="day-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-slate-300 hover:text-white">🎯 Çapa + Dönüş (4 Maç)</button>
-                <button onclick="switchCouponDay('yuksek_oran_kg')" id="day-btn-yuksek_oran_kg" class="day-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-slate-300 hover:text-white">📊 4 Maç Değer KG</button>
-                <button onclick="switchCouponDay('iyms_sistem_56')" id="day-btn-iyms_sistem_56" class="day-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-slate-300 hover:text-white">🎲 İY/MS Sistem (4 Maç)</button>
-                <button onclick="switchCouponDay('skor_mbs1')" id="day-btn-skor_mbs1" class="day-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-slate-300 hover:text-white">🔢 4 Maç Skor (MBS 1)</button>
-                <button onclick="switchCouponDay('iy_skor_sistem')" id="day-btn-iy_skor_sistem" class="day-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition text-slate-300 hover:text-white">📈 1. Yarı Skoru Sistem (4 Maç)</button>
-            </div>
-
-            <!-- Active Coupon Display (Screenshot Style) -->
+            <!-- Active Coupon Display (5 Maçlık Kupon Kartı) -->
             <div id="coupon-display-container">
-                <div class="py-16 text-center text-slate-500">
-                    <i class="fa-solid fa-circle-notch fa-spin text-3xl mb-3 text-rose-500"></i>
-                    <p>Tüm sitelerin ortak bülteni taranıyor, takımların son 5 maçlık form ve sakatlık raporları inceleniyor...</p>
+                <div class="py-16 text-center text-slate-400">
+                    <i class="fa-solid fa-circle-notch fa-spin text-3xl mb-3 text-purple-500"></i>
+                    <p class="font-bold text-white text-sm">Canlı bülten taranıyor, 5 maçlık kupon hazırlanıyor...</p>
+                    <p class="text-xs text-slate-400 mt-2">Açılmazsa <a href="javascript:loadAllData(true)" class="text-purple-400 underline font-bold cursor-pointer">buraya dokunarak hemen tazeleyin</a> veya <a href="javascript:location.reload()" class="text-emerald-400 underline font-bold cursor-pointer">sayfayı yenileyin</a>.</p>
                 </div>
             </div>
-
         </section>
 
         <!-- ================= TAB 2: DÜNYA BÜLTENİ & SON 5 MAÇ DERİN ANALİZ ================= -->
         <section id="section-matches" class="tab-content hidden">
+            <!-- Platform Filtre Bildirim Bannerı (Platforma tıklandığında görünür) -->
+            <div id="active-platform-banner" class="hidden mb-4 p-3 rounded-2xl bg-gradient-to-r from-amber-500/20 via-purple-500/20 to-blue-500/20 border border-amber-500/40 flex items-center justify-between shadow-lg">
+                <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span id="active-platform-banner-text" class="text-xs sm:text-sm font-black text-amber-200">
+                        👑 Pinnacle (%98.4 RTP) Bülteni ve Oranları Açıldı
+                    </span>
+                </div>
+                <button onclick="resetPlatformFilter()" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition flex items-center gap-1">
+                    <i class="fa-solid fa-xmark"></i> Tüm Bülteni Göster
+                </button>
+            </div>
+
             <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
                 <div>
-                    <h2 class="text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+                    <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
                         <i class="fa-solid fa-globe text-accentblue"></i>
-                        <span>Ortak Bahis Bülteni & Son 5 Maç Geçmişi</span>
+                        <span>Ortak Bahis Bülteni & Son 5 Maç Derin Analiz</span>
                     </h2>
-                    <p class="text-sm text-slate-400">Tüm yerli ve uluslararası platformların eşit havuzundan maçlar, devre skorları ve değer analizleri.</p>
+                    <p class="text-xs sm:text-sm text-slate-400">Tüm yerli ve uluslararası platformların eşit havuzundan maçlar, devre skorları ve değer analizleri.</p>
                 </div>
 
                 <!-- Filters & Search -->
                 <div class="flex flex-wrap items-center gap-2 w-full md:w-auto">
-                    <input type="text" id="bulletin-search-input" onkeyup="filterBulletin()" placeholder="Takım veya lig ara..." class="bg-cardbg border border-cardborder rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-rose-500 flex-1 sm:w-56">
-                    <select id="bulletin-day-filter" onchange="filterBulletin()" class="bg-cardbg border border-cardborder rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-rose-500">
+                    <input type="text" id="bulletin-search-input" onkeyup="filterBulletin()" placeholder="Takım veya lig ara..." class="bg-cardbg border border-cardborder rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-purple-500 flex-1 sm:w-56">
+                    <select id="bulletin-day-filter" onchange="filterBulletin()" class="bg-cardbg border border-cardborder rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-purple-500">
                         <option value="all">Tüm Günler (Bugün & Yarın)</option>
                         <option value="today">Sadece Bugün</option>
                         <option value="tomorrow">Sadece Yarın</option>
@@ -290,340 +369,277 @@
 
             <!-- Matches List Grid -->
             <div id="matches-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Javascript will populate cards -->
+                <!-- Javascript fills cards -->
             </div>
         </section>
 
-        <!-- ================= TAB 3: GÜVEN ODAKLI KUPON SİHİRBAZI ================= -->
+        <!-- ================= TAB 3: İY MS SKOR TABLOSU ================= -->
+        <section id="section-iyms_table" class="tab-content hidden">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+                        <i class="fa-solid fa-table-cells text-amber-400"></i>
+                        <span>İY MS Skor Tablosu (Devre & Maç Skoru Analiz Matrisi)</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-400">Bivariate Poisson & Dixon-Coles xG modeliyle hesaplanmış İlk Yarı ve Maç Sonucu tam skor tahminleri.</p>
+                </div>
+                <div class="flex items-center gap-2 w-full md:w-auto">
+                    <input type="text" id="iyms-search-input" onkeyup="filterIYMSTable()" placeholder="Maç veya lig ara..." class="bg-cardbg border border-cardborder rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-amber-500 flex-1 sm:w-64">
+                </div>
+            </div>
+
+            <div id="iyms-table-container" class="space-y-3">
+                <!-- Javascript fills table -->
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: ÖZEL KUPON SİHİRBAZI (5 MAÇ) ================= -->
         <section id="section-wizard" class="tab-content hidden">
-            <div class="max-w-3xl mx-auto">
-                <div class="text-center mb-8">
-                    <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-2xl mb-3 shadow-lg shadow-emerald-500/10">
-                        <i class="fa-solid fa-shield-halved"></i>
+            <div class="max-w-2xl mx-auto bg-cardbg border border-cardborder rounded-3xl p-6 sm:p-8 shadow-2xl">
+                <div class="text-center mb-6">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-600 to-indigo-600 mx-auto flex items-center justify-center mb-3 shadow-lg shadow-purple-600/30">
+                        <i class="fa-solid fa-wand-magic-sparkles text-white text-xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-white">Güven Odaklı Net Kupon Sihirbazı (50 TL)</h2>
-                    <p class="text-sm text-slate-400 mt-1">Net Sonuç, Kontrgaranti (1X0 • 2X0 • 1X2), 1.Y/2.Y Evet/Evet veya İY/MS (1/0 • 2/0 • 1/2 • 2/1) seçeneklerinden 50 TL'lik kupon oluşturun.</p>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight">Özel 5 Maçlık Kupon Sihirbazı</h2>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-1">İstediğin oyun tarzına göre yapay zeka tam 5 maç seçerek 50 TL'lik kuponunu anında oluşturur.</p>
                 </div>
 
-                <div class="bg-cardbg border border-cardborder rounded-3xl p-6 sm:p-8 shadow-xl">
-                    <form id="wizard-form" onsubmit="generateCustomMegaCoupon(event)" class="space-y-6">
-
-                        <!-- Kupon Tarzı -->
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-200 mb-2">Tercih Tipi</label>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="coupon_style" value="aksam_300k" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-rose-500/20 peer-checked:border-rose-500 peer-checked:text-amber-300 transition font-semibold text-xs">
-                                        🎯 Akşam Özel (50 TL → ~300B TL)
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="coupon_style" value="net_guven" checked class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-emerald-500/20 peer-checked:border-emerald-500 peer-checked:text-emerald-300 transition font-semibold text-xs">
-                                        🛡️ Yüksek Güven Net Sonuç
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="coupon_style" value="kontrgaranti" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-cyan-500/20 peer-checked:border-cyan-500 peer-checked:text-cyan-300 transition font-semibold text-xs">
-                                        🔒 Kontrgaranti (1X0 • 2X0 • 1X2)
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="coupon_style" value="evet_evet" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-green-500/20 peer-checked:border-green-500 peer-checked:text-green-300 transition font-semibold text-xs">
-                                        ⚽ 1.Y/2.Y KG: Evet/Evet
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="coupon_style" value="iy_ms_10_20" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-orange-500/20 peer-checked:border-orange-500 peer-checked:text-orange-300 transition font-semibold text-xs">
-                                        🔄 İY/MS (1/0 • 2/0 Denge)
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="coupon_style" value="iy_ms_12_21" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-purple-500/20 peer-checked:border-purple-500 peer-checked:text-purple-300 transition font-semibold text-xs">
-                                        ⚡ İY/MS (1/2 • 2/1 Dönüş)
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="coupon_style" value="kg_evet" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-teal-500/20 peer-checked:border-teal-500 peer-checked:text-teal-300 transition font-semibold text-xs">
-                                        ✅ Maç Geneli KG Evet
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="coupon_style" value="skor_mbs1" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-slate-700 peer-checked:border-slate-400 peer-checked:text-white transition font-medium text-xs text-slate-300">
-                                        3 Maç Skor (MBS 1)
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="coupon_style" value="iy_skor_sistem" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-slate-700 peer-checked:border-slate-400 peer-checked:text-white transition font-medium text-xs text-slate-300">
-                                        1. Yarı Skoru (Sistem)
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="coupon_style" value="iyms_sistem_56" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-slate-700 peer-checked:border-slate-400 peer-checked:text-white transition font-medium text-xs text-slate-300">
-                                        İY/MS Dönüş (Sistem 56 TL)
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="coupon_style" value="capa_skor_kombine" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-slate-700 peer-checked:border-slate-400 peer-checked:text-white transition font-medium text-xs text-slate-300">
-                                        Çapa + Skor Kombine
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="coupon_style" value="yuksek_oran_kg" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-slate-700 peer-checked:border-slate-400 peer-checked:text-white transition font-medium text-xs text-slate-300">
-                                        Yüksek Oran KG Var
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Maç Sayısı -->
-                        <div>
-                            <label class="block text-sm font-semibold text-slate-200 mb-2">Kupondaki Maç Sayısı (50 TL Kupon)</label>
-                            <div class="grid grid-cols-3 gap-3">
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="match_count" value="3" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-emerald-500/20 peer-checked:border-emerald-500 peer-checked:text-emerald-400 transition font-semibold text-sm">
-                                        3 Maç (Yüksek Güven)
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="match_count" value="4" checked class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-emerald-500/20 peer-checked:border-emerald-500 peer-checked:text-emerald-400 transition font-semibold text-sm">
-                                        4 Maç (50 TL İdeal) ⭐
-                                    </div>
-                                </label>
-                                <label class="cursor-pointer">
-                                    <input type="radio" name="match_count" value="5" class="peer sr-only">
-                                    <div class="p-3 text-center rounded-xl border border-cardborder bg-slate-900/60 peer-checked:bg-emerald-500/20 peer-checked:border-emerald-500 peer-checked:text-emerald-400 transition font-semibold text-sm">
-                                        5 Maç (Çarpan Artırımlı)
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 text-white font-bold rounded-2xl shadow-lg shadow-emerald-600/30 hover:opacity-95 transition flex items-center justify-center gap-2 text-base">
-                            <i class="fa-solid fa-check-double"></i>
-                            <span>50 TL Güvenli Kuponu Oluştur</span>
-                        </button>
-                    </form>
-
-                    <!-- Wizard Result Output -->
-                    <div id="wizard-result" class="mt-8 hidden">
-                        <!-- Javascript will display the coupon here -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Kupon Modeli</label>
+                        <select id="wizard-style" class="w-full bg-slate-900 border border-cardborder rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-purple-500">
+                            <option value="iy_ms">1. İY / MS (1/2, 1/0, 2/0, 0/2, 0/1, 2/1) - 5 Maç</option>
+                            <option value="dogru_skor">2. Doğru Skor Tahmini (Maçın Tam Skoru) - 5 Maç</option>
+                            <option value="iy_ms_skor">3. İY / MS Skoru Kombinasyonları - 5 Maç</option>
+                            <option value="sistem">4. Sistem Kuponu (Sistem 3, 4, 5 • 16 Kolon) - 5 Maç</option>
+                            <option value="yuksek_oran">5. Yüksek Oranlı Kupon (50 TL → ~1 Milyon TL) - 5 Maç</option>
+                            <option value="gol_ustu">6. Gol Üstü Kuponu (0.5 / 1.5 / 2.5 / 3.5 Üst) - 5 Maç</option>
+                            <option value="evet_evet">7. Evet / Evet Kuponu (1.Y/2.Y KG: Evet) - 5 Maç</option>
+                            <option value="konti_garanti">8. Konti Garanti Kuponu (Süper Banko) - 5 Maç</option>
+                        </select>
                     </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Maç Sayısı</label>
+                            <input type="text" value="5 Maç (Sabit)" readonly class="w-full bg-slate-950 border border-cardborder rounded-xl px-4 py-2 text-sm text-purple-300 font-bold cursor-not-allowed">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Kupon Tutarı</label>
+                            <input type="text" value="50 TL (Standart)" readonly class="w-full bg-slate-950 border border-cardborder rounded-xl px-4 py-2 text-sm text-emerald-400 font-bold cursor-not-allowed">
+                        </div>
+                    </div>
+
+                    <button onclick="generateCustomWizardCoupon()" class="w-full py-3 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-sm tracking-wide shadow-lg shadow-purple-600/30 transition active:scale-95 flex items-center justify-center gap-2 mt-2">
+                        <i class="fa-solid fa-bolt"></i>
+                        <span>5 Maçlık Kuponu Hemen Oluştur</span>
+                    </button>
+                </div>
+
+                <div id="wizard-result" class="mt-6 hidden">
+                    <!-- Javascript populates custom coupon card here -->
                 </div>
             </div>
         </section>
 
     </main>
 
+    <!-- ================= MODAL 1: DÜNYANIN EN ÇOK KAZANDIRAN BAHİS SİTELERİ ================= -->
+    <div id="top-payouts-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-start justify-center p-3 pt-6 sm:pt-10 overflow-y-auto">
+        <div class="bg-cardbg border-2 border-amber-500/60 rounded-3xl max-w-4xl w-full p-5 sm:p-7 shadow-2xl relative my-auto">
+            <button onclick="closeTopPayoutsModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Header -->
+            <div class="mb-5 pr-8">
+                <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+                    <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs border border-amber-500/40 flex items-center gap-1.5">
+                        <i class="fa-solid fa-crown text-amber-400"></i> GLOBAL PAYOUT (RTP) ANALİZİ
+                    </span>
+                    <span class="text-xs text-emerald-400 font-bold bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                        En Düşük Kâr Marjı: %1.5 - %3.0
+                    </span>
+                </div>
+                <h3 class="text-xl sm:text-2xl font-black text-white tracking-tight flex items-center gap-2">
+                    <i class="fa-solid fa-trophy text-amber-400"></i>
+                    <span>Dünyanın En Çok Kazandıran Bahis Siteleri</span>
+                </h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1 leading-relaxed">
+                    Aynı maça oynanan 50 TL, platformların kâr marjı (house edge) nedeniyle farklı kazançlar sağlar. Aşağıdaki siteler dünya genelinde oyuncuya en yüksek geri ödeme oranını (% RTP) sunan kurumlardır. Bir siteye tıklayarak maçlarını inceleyebilirsiniz.
+                </p>
+            </div>
+
+            <!-- Grid of Top Payout Sites -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3.5 mb-5">
+                <!-- 1. Pinnacle -->
+                <div class="p-4 rounded-2xl bg-gradient-to-br from-amber-950/40 via-slate-900 to-cardbg border border-amber-500/50 hover:border-amber-400 transition relative group">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center shadow">1</span>
+                            <div>
+                                <h4 class="text-sm font-black text-white">Pinnacle (Sportsbook)</h4>
+                                <span class="text-[10px] text-amber-400">Dünya Lideri • Curacao / Malta</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-base font-black text-emerald-400">%98.4 RTP</div>
+                            <span class="text-[9px] text-slate-400">Marj: %1.6</span>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
+                        Profesyonel bahisçilerin tercihi. Dünyanın en düşük kâr marjı ve en yüksek limitleri. Kazanan oyuncuyu asla kısıtlamaz.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <button onclick="closeTopPayoutsModal(); openPlatformMatches('pinnacle', 'Pinnacle', '98.4');" class="flex-1 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs transition flex items-center justify-center gap-1.5 shadow">
+                            <i class="fa-solid fa-futbol"></i> <span>Maçları ve Oranları Aç</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. Betfair Exchange -->
+                <div class="p-4 rounded-2xl bg-gradient-to-br from-yellow-950/40 via-slate-900 to-cardbg border border-yellow-500/50 hover:border-yellow-400 transition relative group">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-yellow-500 text-slate-950 font-black text-xs flex items-center justify-center shadow">2</span>
+                            <div>
+                                <h4 class="text-sm font-black text-white">Betfair Exchange</h4>
+                                <span class="text-[10px] text-yellow-400">Bahis Borsası • İngiltere</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-base font-black text-emerald-400">%98.1 RTP</div>
+                            <span class="text-[9px] text-slate-400">Komisyon: %2-%5</span>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
+                        Oyuncular birbirine karşı oynar (Back / Lay). Aracı marjı sıfırdır, sadece kazanan kupondan küçük komisyon kesilir.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <button onclick="closeTopPayoutsModal(); openPlatformMatches('betfair', 'Betfair Exchange', '98.1');" class="flex-1 py-1.5 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-black text-xs transition flex items-center justify-center gap-1.5 shadow">
+                            <i class="fa-solid fa-futbol"></i> <span>Maçları ve Oranları Aç</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. 1xBet -->
+                <div class="p-4 rounded-2xl bg-gradient-to-br from-blue-950/40 via-slate-900 to-cardbg border border-blue-500/50 hover:border-blue-400 transition relative group">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-blue-500 text-white font-black text-xs flex items-center justify-center shadow">3</span>
+                            <div>
+                                <h4 class="text-sm font-black text-white">1xBet (Global)</h4>
+                                <span class="text-[10px] text-blue-400">Geniş Bülten • Curacao</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-base font-black text-emerald-400">%97.2 RTP</div>
+                            <span class="text-[9px] text-slate-400">Marj: %2.8</span>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
+                        Büyük liglerde sıfır marj (%0 margin) kampanyaları sunar. 1000'den fazla özel pazar ve korner/kart seçeneği.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <button onclick="closeTopPayoutsModal(); openPlatformMatches('1xbet', '1xBet', '97.2');" class="flex-1 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-black text-xs transition flex items-center justify-center gap-1.5 shadow">
+                            <i class="fa-solid fa-futbol"></i> <span>Maçları ve Oranları Aç</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. Bet365 -->
+                <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-950/40 via-slate-900 to-cardbg border border-emerald-500/50 hover:border-emerald-400 transition relative group">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-lg bg-emerald-500 text-slate-950 font-black text-xs flex items-center justify-center shadow">4</span>
+                            <div>
+                                <h4 class="text-sm font-black text-white">Bet365</h4>
+                                <span class="text-[10px] text-emerald-400">Global Dev • İngiltere / Malta</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-base font-black text-emerald-400">%96.2 RTP</div>
+                            <span class="text-[9px] text-slate-400">Marj: %3.8</span>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-slate-300 leading-relaxed mb-3">
+                        Dünyanın en popüler spor bahis sitesi. "Erken Ödeme" (2 farkta kazanır) ve kupon erken bozdurma özellikleriyle ünlü.
+                    </p>
+                    <div class="flex items-center gap-2">
+                        <button onclick="closeTopPayoutsModal(); openPlatformMatches('bet365', 'Bet365', '96.2');" class="flex-1 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs transition flex items-center justify-center gap-1.5 shadow">
+                            <i class="fa-solid fa-futbol"></i> <span>Maçları ve Oranları Aç</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Türkiye Yasal İddaa Karşılaştırma Notu -->
+            <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-700 flex items-start gap-3 text-xs text-slate-300">
+                <i class="fa-solid fa-circle-info text-amber-400 text-base shrink-0 mt-0.5"></i>
+                <div>
+                    <span class="font-bold text-white">Türkiye Yasal İddaa (Nesine, Misli, Bilyoner vb.):</span>
+                    Yasal sistemde Spor Toto Teşkilatı kuralı gereği ortalama geri ödeme oranı %88-%91 civarındadır. Uygulamamız kuponlarınızı doğrudan MBS kurallarına uygun olarak 50 TL standartlarında Nesine bülten kodlarıyla hazırlar.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL 2: ARAMA MODALI ================= -->
+    <div id="search-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-start justify-center p-3 pt-12 overflow-y-auto">
+        <div class="bg-cardbg border border-cardborder rounded-3xl max-w-2xl w-full p-5 shadow-2xl relative">
+            <button onclick="closeSearchModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center gap-2 border-b border-cardborder pb-3 mb-4">
+                <i class="fa-solid fa-magnifying-glass text-purple-400 text-lg"></i>
+                <input type="text" id="global-search-input" onkeyup="handleGlobalSearch()" placeholder="Takım, lig, oran veya platform ara..." class="w-full bg-transparent text-base text-white focus:outline-none placeholder-slate-500">
+            </div>
+            <div id="search-results-container" class="space-y-2 max-h-[60vh] overflow-y-auto pr-1">
+                <div class="text-center py-8 text-slate-500 text-xs">Aramak istediğin takım veya platform adını yaz...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL 3: DERİN ANALİZ MODALI ================= -->
+    <div id="deep-analysis-modal" onclick="if(event.target===this)closeDeepAnalysisModal()" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-start justify-center p-3 pt-6 sm:pt-10 overflow-y-auto">
+        <div class="bg-cardbg border border-purple-500/50 rounded-3xl max-w-3xl w-full p-5 sm:p-7 shadow-2xl relative my-auto">
+            <button onclick="closeDeepAnalysisModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="deep-analysis-modal-content">
+                <div class="py-12 text-center text-slate-400">Yükleniyor...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MODAL 4: TÜM ORANLAR KARŞILAŞTIRMA MODALI ================= -->
+    <div id="all-odds-modal" onclick="if(event.target===this)closeAllOddsModal()" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-start justify-center p-3 pt-6 sm:pt-10 overflow-y-auto">
+        <div class="bg-cardbg border border-blue-500/50 rounded-3xl max-w-4xl w-full p-5 sm:p-7 shadow-2xl relative my-auto">
+            <button onclick="closeAllOddsModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div id="all-odds-modal-content">
+                <div class="py-12 text-center text-slate-400">Yükleniyor...</div>
+            </div>
+        </div>
+    </div>
+
     <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-20 md:bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-900 border border-cardborder rounded-2xl shadow-2xl p-4 flex items-center space-x-3">
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-900 border border-cardborder rounded-2xl shadow-2xl p-4 flex items-center space-x-3">
         <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
         <span id="toast-message" class="text-sm text-slate-200">Kupon kopyalandı!</span>
     </div>
 
-    <!-- ================= CANLI MAÇ & İDDAA SİTELERİ ARAMA MODALI ================= -->
-    <div id="search-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-start justify-center p-3 pt-8 sm:pt-12">
-        <div class="bg-cardbg border-2 border-amber-500/50 rounded-3xl max-w-2xl w-full p-4 sm:p-6 shadow-2xl relative glow-amber flex flex-col max-h-[88vh]">
-            <button onclick="closeSearchModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center transition">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-
-            <div class="mb-3 pr-8">
-                <div class="flex items-center gap-2 mb-1">
-                    <i class="fa-solid fa-magnifying-glass text-amber-400 text-xl"></i>
-                    <h3 class="text-xl font-black text-white">Canlı Maç & Bahis Sitelerinde Ara</h3>
-                </div>
-                <p class="text-xs text-slate-400">300+ canlı maç, yapay zeka analizleri ve 50+ yerli/küresel bahis platformunda ortak arama.</p>
-            </div>
-
-            <!-- Search Input Box -->
-            <div class="relative mb-3">
-                <i class="fa-solid fa-search absolute left-4 top-3.5 text-slate-400 text-sm"></i>
-                <input type="text" id="global-search-input" oninput="handleGlobalSearch(this.value)" placeholder="Takım, maç veya lig ara (Örn: Beşiktaş, Real Madrid, PSG, Lyon, Arsenal...)" class="w-full bg-slate-900 border border-slate-700 rounded-2xl pl-11 pr-10 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 shadow-inner font-medium">
-                <button onclick="clearSearchInput()" id="clear-search-btn" class="absolute right-3.5 top-3.5 text-slate-500 hover:text-white hidden">
-                    <i class="fa-solid fa-circle-xmark"></i>
-                </button>
-            </div>
-
-            <!-- Quick Platform Search Links -->
-            <div class="flex items-center gap-1.5 overflow-x-auto pb-2 mb-3 scrollbar-none text-[11px] font-bold">
-                <span class="text-slate-400 shrink-0">Sitelerde Direkt Ara:</span>
-                <button onclick="searchOnExternal('nesine')" class="px-2 py-1 rounded-lg bg-emerald-950/70 text-emerald-300 border border-emerald-600/40 hover:bg-emerald-800 shrink-0 transition">🟢 Nesine</button>
-                <button onclick="searchOnExternal('misli')" class="px-2 py-1 rounded-lg bg-yellow-950/70 text-yellow-300 border border-yellow-600/40 hover:bg-yellow-800 shrink-0 transition">🟡 Misli</button>
-                <button onclick="searchOnExternal('bilyoner')" class="px-2 py-1 rounded-lg bg-blue-950/70 text-blue-300 border border-blue-600/40 hover:bg-blue-800 shrink-0 transition">🔵 Bilyoner</button>
-                <button onclick="searchOnExternal('birebin')" class="px-2 py-1 rounded-lg bg-purple-950/70 text-purple-300 border border-purple-600/40 hover:bg-purple-800 shrink-0 transition">🟣 Birebin</button>
-                <button onclick="searchOnExternal('oley')" class="px-2 py-1 rounded-lg bg-teal-950/70 text-teal-300 border border-teal-600/40 hover:bg-teal-800 shrink-0 transition">🟢 Oley</button>
-                <button onclick="searchOnExternal('iddaa')" class="px-2 py-1 rounded-lg bg-slate-800 text-slate-200 border border-slate-600 hover:bg-slate-700 shrink-0 transition">🇹🇷 İddaa</button>
-                <button onclick="searchOnExternal('tipico')" class="px-2 py-1 rounded-lg bg-rose-950/70 text-rose-300 border border-rose-600/40 hover:bg-rose-800 shrink-0 transition">🇩🇪 Tipico Canlı</button>
-            </div>
-
-            <!-- Search Results List -->
-            <div id="search-results-container" class="overflow-y-auto space-y-2.5 flex-1 pr-1 max-h-[50vh]">
-                <!-- Javascript fills results -->
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= ANDROID & MOBİL BAĞLANTI MODALI ================= -->
-    <div id="mobile-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
-        <div class="bg-cardbg border-2 border-cyan-500/50 rounded-3xl max-w-md w-full p-6 shadow-2xl relative glow-cyan">
-            <button onclick="closeMobileModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center transition">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-
-            <div class="text-center mb-3">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-green-500 text-white flex items-center justify-center text-xl mx-auto mb-2 shadow-lg shadow-emerald-600/30">
-                    <i class="fa-solid fa-mobile-screen-button"></i>
-                </div>
-                <h3 class="text-lg font-black text-white">Telefona Uygulama Olarak Kur</h3>
-                <p class="text-xs text-slate-400">Tam ekran ve bağımsız Android/iOS uygulaması olarak kullanın</p>
-            </div>
-
-            <!-- APK Hatasız Kurulum Bilgisi -->
-            <div class="p-3 bg-emerald-950/40 border border-emerald-500/40 rounded-2xl mb-3 text-left">
-                <div class="flex items-center gap-2 mb-1">
-                    <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
-                    <strong class="text-xs text-emerald-300">Telefona Kurulum (APK gerekmez):</strong>
-                </div>
-                <p class="text-[11px] text-slate-300 leading-relaxed">
-                    Linki telefonda <strong>Chrome</strong> ile aç → sağ üst <strong>⋮</strong> menü → <strong>"Uygulamayı yükle"</strong> (veya <strong>"Ana ekrana ekle"</strong>). Uygulama tam ekran açılır. APK dosyası gerekmez.
-                </p>
-            </div>
-
-            <!-- Hızlı Kur Butonu (tarayıcı destekliyorsa tek dokunuşla kurar) -->
-            <button onclick="installPwaNow()" class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-black text-xs transition flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/30 mb-3 active:scale-95">
-                <i class="fa-solid fa-mobile-screen-button text-sm"></i>
-                <span>📱 Telefona / Bilgisayara Uygulama Olarak Kur</span>
-            </button>
-
-            <!-- Tab Switcher between Public HTTPS & Local WiFi -->
-            <div class="flex items-center gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800 mb-3 text-xs font-bold">
-                <button onclick="toggleMobileView('public')" id="btn-mobile-view-public" class="flex-1 py-1.5 rounded-lg bg-cyan-600 text-white shadow transition flex items-center justify-center gap-1.5">
-                    <i class="fa-solid fa-globe"></i>
-                    <span>Tüm Telefonlar (Arkadaşlar & 4.5G)</span>
-                </button>
-                <button onclick="toggleMobileView('local')" id="btn-mobile-view-local" class="flex-1 py-1.5 rounded-lg text-slate-400 hover:text-white transition flex items-center justify-center gap-1.5">
-                    <i class="fa-solid fa-wifi"></i>
-                    <span>Aynı Ev Wi-Fi</span>
-                </button>
-            </div>
-
-            <!-- QR Code Box -->
-            <div class="bg-white p-3 rounded-2xl mx-auto w-56 h-56 flex items-center justify-center shadow-inner mb-3">
-                <img id="mobile-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&margin=5&data=http://192.168.1.100:5000" alt="Mobil QR Kod" class="w-full h-full object-contain">
-            </div>
-
-            <!-- Direct URL Link & Copy -->
-            <div class="bg-slate-900 border border-cardborder rounded-xl p-2.5 flex items-center justify-between mb-3">
-                <div class="truncate mr-2">
-                    <span id="mobile-url-label" class="text-[10px] text-cyan-400 block font-bold uppercase">🌐 Genel HTTPS Adresi (Tüm Telefonlar)</span>
-                    <span id="mobile-url-text" class="text-xs font-mono font-bold text-white truncate block">Bağlantı yükleniyor...</span>
-                </div>
-                <button onclick="copyMobileUrl()" class="px-3 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-lg transition active:scale-95 flex items-center gap-1 shrink-0">
-                    <i class="fa-regular fa-copy"></i>
-                    <span>Kopyala</span>
-                </button>
-            </div>
-
-            <!-- Step by Step Instructions -->
-            <div class="space-y-1.5 text-xs text-slate-300 bg-slate-900/60 p-3 rounded-2xl border border-slate-800">
-                <div class="flex items-start gap-2">
-                    <span class="w-4 h-4 rounded-full bg-cyan-500/20 text-cyan-400 font-bold flex items-center justify-center shrink-0 text-[10px]">1</span>
-                    <span id="mobile-step1-text">Arkadaşınıza yukarıdaki linki WhatsApp/Telegram ile gönderin veya QR kodu telefon kamerasıyla okutun.</span>
-                </div>
-                <div class="flex items-start gap-2">
-                    <span class="w-4 h-4 rounded-full bg-cyan-500/20 text-cyan-400 font-bold flex items-center justify-center shrink-0 text-[10px]">2</span>
-                    <span>Sayfa açıldığında Chrome menüsünden <strong>"Ana Ekrana Ekle"</strong> veya üstteki <strong>"Yükle"</strong> butonuna basın.</span>
-                </div>
-                <div class="flex items-start gap-2">
-                    <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center shrink-0 text-[10px]">✓</span>
-                    <span class="text-emerald-300 font-medium">Uygulama telefona tam ekran ve bağımsız Android uygulaması olarak kurulur!</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================= FLOATING INSTALL BUTTON (sağ altta küçük buton) ================= -->
-    <!-- Banner tamamen kaldırıldı — artık sadece küçük yuvarlak buton var -->
-    <button onclick="openMobileModal()" id="install-app-btn"
-        title="Uygulamayı Telefona Kur"
-        style="position:fixed;bottom:72px;right:14px;z-index:49;
-               background:linear-gradient(135deg,#10b981,#059669);
-               border-radius:50%;width:46px;height:46px;
-               display:flex;align-items:center;justify-content:center;
-               box-shadow:0 4px 18px rgba(16,185,129,0.45);
-               border:2px solid rgba(16,185,129,0.5);
-               cursor:pointer;transition:transform .15s,box-shadow .15s"
-        onmouseover="this.style.transform='scale(1.12)';this.style.boxShadow='0 6px 24px rgba(16,185,129,0.6)'"
-        onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 4px 18px rgba(16,185,129,0.45)'"
-        onmousedown="this.style.transform='scale(0.95)'"
-        onmouseup="this.style.transform='scale(1.12)'">
-        <i class="fa-brands fa-google-play text-white" style="font-size:18px"></i>
-    </button>
-
-    <!-- ================= FIXED BOTTOM NAV FOR MOBILE ================= -->
-    <div class="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-cardbg/95 backdrop-blur-lg border-t border-cardborder px-1 py-1.5 flex items-center justify-around shadow-2xl">
-        <button onclick="switchTab('coupons')" id="mobile-tab-coupons" class="flex flex-col items-center justify-center text-purple-400 py-1 px-1.5 rounded-xl transition">
-            <i class="fa-solid fa-ticket text-lg"></i>
-            <span class="text-[10px] font-bold mt-0.5">Kuponlar</span>
-        </button>
-        <button onclick="refreshAllCoupons()" id="mobile-btn-refresh" class="flex flex-col items-center justify-center text-emerald-400 py-1 px-1.5 rounded-xl transition active:scale-90">
-            <i class="fa-solid fa-arrows-rotate text-lg" id="mobile-refresh-icon"></i>
-            <span class="text-[10px] font-black mt-0.5">Kupon Yenile</span>
-        </button>
-        <button onclick="openSearchModal()" class="flex flex-col items-center justify-center text-amber-400 py-1 px-1.5 rounded-xl transition">
-            <i class="fa-solid fa-magnifying-glass text-lg"></i>
-            <span class="text-[10px] font-bold mt-0.5">Ara & Siteler</span>
-        </button>
-        <button onclick="switchTab('matches')" id="mobile-tab-matches" class="flex flex-col items-center justify-center text-slate-400 py-1 px-1.5 rounded-xl transition">
-            <i class="fa-solid fa-futbol text-lg"></i>
-            <span class="text-[10px] font-medium mt-0.5">Bülten</span>
-        </button>
-        <button onclick="openMobileModal()" class="flex flex-col items-center justify-center text-cyan-400 py-1 px-1.5 rounded-xl transition">
-            <i class="fa-solid fa-mobile-screen-button text-lg"></i>
-            <span class="text-[10px] font-bold mt-0.5">Dışarıda Aç</span>
-        </button>
-    </div>
-
-    <!-- Footer Disclaimer -->
-    <footer class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-cardborder text-center text-xs text-slate-500 mt-12 space-y-2">
-        <p class="font-medium text-slate-400">⚠️ Sorumlu Bahis ve Yasal Bilgilendirme</p>
-        <p>Bu sistem; Bivariate Poisson ve Dixon-Coles matematiksel dağılımları ile takımların geçmiş son 5 maçlık ilk yarı / ikinci yarı skor paternlerini baz alarak yüksek oranlı değer analizi üretir. Kesin kazanç garantisi içermez. 18 yaşından küçüklerin bahis oynaması kanunen yasaktır.</p>
-    </footer>
-
-    <!-- App JS -->
-    <script src="/static/app.js?v=20261027g"></script>
-
-    <!-- Derin Analiz Modal -->
-    <div id="deepAnalysisModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeDeepAnalysis()">
-      <div class="modal-content deep-analysis-modal">
-        <button onclick="closeDeepAnalysis()" class="modal-close">✕</button>
-        <div id="deepAnalysisContent">Yükleniyor...</div>
-      </div>
-    </div>
-
-    <!-- ================= TÜM ORANLAR & BAHİS ÇEŞİTLERİ MODALI ================= -->
-    <div id="allOddsModal" class="modal-overlay" style="display:none" onclick="if(event.target===this)closeAllOddsModal()">
-      <div class="modal-content deep-analysis-modal max-w-4xl" style="max-height:92vh; overflow-y:auto; padding:20px;">
-        <button onclick="closeAllOddsModal()" class="modal-close">✕</button>
-        <div id="allOddsModalContent">
-            <!-- Dinamik yüklenecek -->
-        </div>
-      </div>
-    </div>
+    <!-- Scripts -->
+    <script src="/static/app.js?v=20261030_v8"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('PWA ServiceWorker registered:', reg.scope))
+            .catch(err => console.log('PWA ServiceWorker error:', err));
+        });
+      }
+    </script>
 </body>
 </html>
