@@ -297,7 +297,7 @@ class CouponOptimizer:
                                 p2 *= it2["odd"]
                             s_ret += min(12500000.0, p2)
                 sub_returns.append(s_ret)
-            realistic_return = round(sum(sub_returns) / len(sub_returns), 2)
+            realistic_return = round(sum(sub_returns) / len(sub_returns), 2) if sub_returns else round(full_return, 2)
         else:
             realistic_return = round(full_return, 2)
 
@@ -1253,10 +1253,11 @@ class CouponOptimizer:
         cols_4 = list(combinations(odds_list, 4))
         cols_5 = list(combinations(odds_list, 5))
         total_cols = len(cols_3) + len(cols_4) + len(cols_5)
-        col_stake = 50.0 / total_cols
+        col_stake = (50.0 / total_cols) if total_cols > 0 else 50.0
 
-        avg_3_hits = (sum(a*b*c for a,b,c in cols_3) / len(cols_3)) * col_stake
-        all_5_hits = sum(a*b*c*col_stake for a,b,c in cols_3) + sum(a*b*c*d*col_stake for a,b,c,d in cols_4) + (sum(odds_list[0]*odds_list[1]*odds_list[2]*odds_list[3]*odds_list[4]*col_stake for _ in [1]))
+        avg_3_hits = ((sum(a*b*c for a,b,c in cols_3) / len(cols_3)) * col_stake) if cols_3 else 0.0
+        p5 = (odds_list[0]*odds_list[1]*odds_list[2]*odds_list[3]*odds_list[4]*col_stake) if len(odds_list) >= 5 else 0.0
+        all_5_hits = sum(a*b*c*col_stake for a,b,c in cols_3) + sum(a*b*c*d*col_stake for a,b,c,d in cols_4) + p5
 
         coupon = self._finalize_coupon(
             selected=selected,
