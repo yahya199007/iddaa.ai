@@ -389,8 +389,8 @@ def get_matches():
         if mt_str:
             try:
                 m_dt = datetime.datetime.strptime(mt_str, "%d.%m.%Y %H:%M")
-                if m_dt <= now_dt:
-                    continue  # Biten veya başlamış maçları gösterme!
+                if m_dt.date() < now_dt.date():
+                    continue  # Sadece geçmiş günün maçlarını filtrele
             except Exception:
                 pass
 
@@ -440,7 +440,7 @@ def get_iyms_skor_tablosu():
         if mt_str:
             try:
                 m_dt = datetime.datetime.strptime(mt_str, "%d.%m.%Y %H:%M")
-                if m_dt <= now_dt:
+                if m_dt.date() < now_dt.date():
                     continue
             except Exception:
                 pass
