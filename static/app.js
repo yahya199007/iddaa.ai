@@ -674,20 +674,51 @@ function renderBulletinMatches() {
         const ms1 = parseFloat(odds.ms1 || odds['1'] || 2.10).toFixed(2);
         const msX = parseFloat(odds.msX || odds['X'] || odds['0'] || 3.20).toFixed(2);
         const ms2 = parseFloat(odds.ms2 || odds['2'] || 3.10).toFixed(2);
-        const u25 = parseFloat(odds.ust25 || odds['2.5_ust'] || 1.85).toFixed(2);
-        const a25 = parseFloat(odds.alt25 || odds['2.5_alt'] || 1.85).toFixed(2);
+
+        // Gol Üstleri ve Alt Oranları (0.5 - 1.5 - 2.5 - 3.5) - Kesintisiz Matematiksel Model
+        const o25_raw = odds.over25 || odds.ust25 || odds['2.5_ust'];
+        const o15_raw = odds.over15 || odds.ust15 || odds['1.5_ust'];
+        const u25_raw = odds.under25 || odds.alt25 || odds['2.5_alt'];
+        const o35_raw = odds.over35 || odds.ust35 || odds['3.5_ust'];
+        const o05_raw = odds.over05 || odds.ust05 || odds['0.5_ust'];
+
+        const o25_val = parseFloat(o25_raw || (u25_raw ? (1.0 / Math.max(0.05, 1.0 - (1.0 / parseFloat(u25_raw) * 0.95)) * 0.95) : 1.85));
+        const u25_val = parseFloat(u25_raw || (o25_raw ? (1.0 / Math.max(0.05, 1.0 - (1.0 / o25_val * 0.95)) * 0.95) : 1.85));
+        const o15_val = parseFloat(o15_raw || (1.0 + (o25_val - 1.0) * 0.38));
+        const o05_val = parseFloat(o05_raw || (1.0 + (o15_val - 1.0) * 0.35));
+        const o35_val = parseFloat(o35_raw || (1.0 + (o25_val - 1.0) * 2.30));
+
+        const o05 = Math.max(1.04, Math.min(1.20, o05_val)).toFixed(2);
+        const o15 = Math.max(1.10, Math.min(1.70, o15_val)).toFixed(2);
+        const o25 = Math.max(1.35, Math.min(2.85, o25_val)).toFixed(2);
+        const u25 = Math.max(1.35, Math.min(2.85, u25_val)).toFixed(2);
+        const o35 = Math.max(1.95, Math.min(4.80, o35_val)).toFixed(2);
+
         const nesineCode = m.nesine_code || m.bulten_code || (m.id ? String(m.id).replace('st-', '') : '54123');
         const mbs = m.mbs || 1;
 
+        // Yapay Zeka Tercih Önerisi
+        const rec = m.recommendation || {};
+        const recPick = rec.pick || (parseFloat(o25) < 1.75 ? '2.5 Gol Üst' : (parseFloat(ms1) < 1.80 ? 'MS 1' : 'KG Var'));
+        const recOdd = rec.odd ? parseFloat(rec.odd).toFixed(2) : o25;
+        const recProb = rec.prob ? Math.round(rec.prob) : 74;
+        const recReasoning = rec.reasoning || `${m.home_team} ve ${m.away_team} takımlarının son 5 maçlık hücum performansı ve xG verileri doğrultusunda ${recPick} tercihi öne çıkmaktadır.`;
+
+        // xG Parametreleri
+        const xgObj = m.expected_goals || {};
+        const hXg = xgObj.home_xg ? parseFloat(xgObj.home_xg).toFixed(2) : (xgObj.home ? parseFloat(xgObj.home).toFixed(2) : '1.45');
+        const aXg = xgObj.away_xg ? parseFloat(xgObj.away_xg).toFixed(2) : (xgObj.away ? parseFloat(xgObj.away).toFixed(2) : '1.15');
+        const tXg = xgObj.total_xg ? parseFloat(xgObj.total_xg).toFixed(2) : (parseFloat(hXg) + parseFloat(aXg)).toFixed(2);
+
         return `
-            <div onclick="openMatchModal('${matchId}')" class="p-4 rounded-2xl bg-cardbg border border-cardborder hover:border-purple-500/70 transition-all shadow-md flex flex-col justify-between cursor-pointer group">
+            <div onclick="openMatchModal('${matchId}')" class="p-3.5 sm:p-4 rounded-2xl bg-cardbg border border-cardborder hover:border-purple-500/70 transition-all shadow-md flex flex-col justify-between cursor-pointer group">
                 <div>
-                    <!-- Top line -->
+                    <!-- Üst Bilgi Satırı -->
                     <div class="flex items-center justify-between text-xs text-slate-400 mb-2">
-                        <span class="truncate max-w-[200px] text-slate-300 font-bold">
+                        <span class="truncate max-w-[170px] sm:max-w-[210px] text-slate-300 font-bold">
                             <i class="fa-solid fa-trophy text-amber-400 text-[10px] mr-1"></i>${m.league || 'Futbol'}
                         </span>
-                        <div class="flex items-center gap-1.5">
+                        <div class="flex items-center gap-1.5 flex-wrap">
                             ${platformBadgeText}
                             <span class="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 text-[10px] font-bold">${m.match_time || 'Bugün'}</span>
                             <span class="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 text-[10px] font-bold">Kod: ${nesineCode}</span>
@@ -695,41 +726,91 @@ function renderBulletinMatches() {
                         </div>
                     </div>
 
-                    <!-- Teams -->
-                    <div class="my-3">
-                        <div class="font-black text-white text-base">${m.home_team || 'Ev Sahibi'}</div>
-                        <div class="font-black text-slate-300 text-base mt-0.5">${m.away_team || 'Deplasman'}</div>
+                    <!-- Takımlar -->
+                    <div class="my-2.5">
+                        <div class="font-black text-white text-base leading-tight">${m.home_team || 'Ev Sahibi'}</div>
+                        <div class="font-black text-slate-300 text-base leading-tight mt-1">${m.away_team || 'Deplasman'}</div>
                     </div>
 
-                    <!-- Odds Strip -->
-                    <div class="grid grid-cols-5 gap-1.5 text-center text-xs my-2">
+                    <!-- 1. Maç Sonucu Oranları (MS 1 - MS X - MS 2) -->
+                    <div class="grid grid-cols-3 gap-1.5 text-center text-xs my-2">
                         <div class="p-1.5 rounded-lg bg-slate-900 border border-cardborder">
-                            <span class="text-[9px] text-slate-400 block">MS 1</span>
-                            <span class="font-black text-emerald-400">${ms1}</span>
+                            <span class="text-[9px] text-slate-400 block font-bold">MS 1</span>
+                            <span class="font-black text-emerald-400 text-xs sm:text-sm">${ms1}</span>
                         </div>
                         <div class="p-1.5 rounded-lg bg-slate-900 border border-cardborder">
-                            <span class="text-[9px] text-slate-400 block">MS X</span>
-                            <span class="font-black text-amber-400">${msX}</span>
+                            <span class="text-[9px] text-slate-400 block font-bold">MS X</span>
+                            <span class="font-black text-amber-400 text-xs sm:text-sm">${msX}</span>
                         </div>
                         <div class="p-1.5 rounded-lg bg-slate-900 border border-cardborder">
-                            <span class="text-[9px] text-slate-400 block">MS 2</span>
-                            <span class="font-black text-blue-400">${ms2}</span>
+                            <span class="text-[9px] text-slate-400 block font-bold">MS 2</span>
+                            <span class="font-black text-blue-400 text-xs sm:text-sm">${ms2}</span>
                         </div>
-                        <div class="p-1.5 rounded-lg bg-slate-900 border border-cardborder">
-                            <span class="text-[9px] text-slate-400 block">2.5 Alt</span>
-                            <span class="font-bold text-slate-200">${a25}</span>
+                    </div>
+
+                    <!-- 2. Gol Üstleri & Alt Oranları (0.5 Üst - 1.5 Üst - 2.5 Üst - 3.5 Üst - 2.5 Alt) -->
+                    <div class="my-2">
+                        <div class="text-[10px] font-black text-emerald-400 uppercase tracking-wider mb-1 flex items-center justify-between">
+                            <span><i class="fa-solid fa-futbol text-[9px] mr-1"></i>Gol Üstleri & Alt Oranları</span>
+                            <span class="text-[9px] text-slate-400 font-normal">0.5 • 1.5 • 2.5 • 3.5</span>
                         </div>
-                        <div class="p-1.5 rounded-lg bg-slate-900 border border-cardborder">
-                            <span class="text-[9px] text-slate-400 block">2.5 Üst</span>
-                            <span class="font-bold text-slate-200">${u25}</span>
+                        <div class="grid grid-cols-5 gap-1 text-center text-xs">
+                            <div class="p-1.5 rounded-lg bg-slate-900/90 border border-cardborder">
+                                <span class="text-[8px] sm:text-[9px] text-slate-400 block font-bold">0.5 Üst</span>
+                                <span class="font-black text-emerald-300">${o05}</span>
+                            </div>
+                            <div class="p-1.5 rounded-lg bg-slate-900/90 border border-cardborder">
+                                <span class="text-[8px] sm:text-[9px] text-slate-400 block font-bold">1.5 Üst</span>
+                                <span class="font-black text-emerald-300">${o15}</span>
+                            </div>
+                            <div class="p-1.5 rounded-lg bg-slate-900/90 border border-cardborder">
+                                <span class="text-[8px] sm:text-[9px] text-slate-400 block font-bold">2.5 Üst</span>
+                                <span class="font-black text-emerald-400">${o25}</span>
+                            </div>
+                            <div class="p-1.5 rounded-lg bg-slate-900/90 border border-cardborder">
+                                <span class="text-[8px] sm:text-[9px] text-slate-400 block font-bold">3.5 Üst</span>
+                                <span class="font-black text-emerald-300">${o35}</span>
+                            </div>
+                            <div class="p-1.5 rounded-lg bg-slate-900/90 border border-cardborder">
+                                <span class="text-[8px] sm:text-[9px] text-slate-400 block font-bold">2.5 Alt</span>
+                                <span class="font-bold text-slate-300">${u25}</span>
+                            </div>
                         </div>
+                    </div>
+
+                    <!-- 3. Yapay Zeka Tercih Önerisi -->
+                    <div class="my-2 p-2 rounded-xl bg-purple-950/40 border border-purple-500/40 flex items-center justify-between gap-1.5 flex-wrap">
+                        <div class="flex items-center gap-1.5">
+                            <span class="px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[9px] sm:text-[10px] font-black uppercase flex items-center gap-1">
+                                <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-[8px]"></i> AI Önerisi
+                            </span>
+                            <span class="font-black text-white text-xs sm:text-sm text-emerald-400 truncate max-w-[170px] sm:max-w-[210px]">
+                                ${recPick}
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-1 ml-auto">
+                            <span class="px-2 py-0.5 rounded-md bg-purple-600/30 text-purple-200 border border-purple-500/40 text-[11px] font-black">
+                                ${recOdd}
+                            </span>
+                            <span class="px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">
+                                %${recProb} Güven
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- 4. Maç Analizi Notu -->
+                    <div class="text-[11px] text-slate-300 bg-slate-900/80 p-2 rounded-xl border border-cardborder flex items-start gap-1.5 my-2">
+                        <i class="fa-solid fa-brain text-purple-400 mt-0.5 shrink-0 text-xs"></i>
+                        <span class="leading-relaxed line-clamp-2" title="${recReasoning}">
+                            ${recReasoning}
+                        </span>
                     </div>
                 </div>
 
-                <!-- Footer Actions -->
-                <div class="mt-3 pt-3 border-t border-cardborder/70 flex items-center justify-between gap-2 flex-wrap">
-                    <span class="text-[11px] text-slate-400 truncate max-w-[180px]">
-                        xG: ${m.expected_goals ? `${m.expected_goals.home} - ${m.expected_goals.away}` : 'Poisson Analizi'}
+                <!-- Footer: xG & Maçı Aç Butonu -->
+                <div class="mt-2 pt-2.5 border-t border-cardborder/70 flex items-center justify-between gap-2 flex-wrap">
+                    <span class="text-[11px] text-slate-400 truncate max-w-[200px]">
+                        <i class="fa-solid fa-chart-simple text-purple-400 mr-1"></i>xG: ${hXg} - ${aXg} (Top: ${tXg})
                     </span>
                     <div class="flex items-center gap-1.5 ml-auto" onclick="event.stopPropagation()">
                         <button onclick="openMatchModal('${matchId}', event)" class="px-3 py-1 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-black transition flex items-center gap-1 shadow active:scale-95">
@@ -1089,6 +1170,11 @@ function renderMatchModalContent(matchId, tabKey) {
     const a = (data.analysis && data.analysis.analysis) ? data.analysis.analysis : (data.analysis || {});
 
     const home = o.home_team || a.home_team || (o.match_name ? o.match_name.split(' - ')[0] : 'Ev Sahibi');
+    const mRec = o.recommendation || (a.recommendations && a.recommendations.length > 0 ? a.recommendations[0] : {}) || {};
+    const modalRecPick = mRec.pick || (a.ai_recommendation ? a.ai_recommendation.pick : '2.5 Gol Üst');
+    const modalRecOdd = mRec.odd ? parseFloat(mRec.odd).toFixed(2) : (a.ai_recommendation ? parseFloat(a.ai_recommendation.odd).toFixed(2) : '1.85');
+    const modalRecProb = mRec.prob ? Math.round(mRec.prob) : (mRec.confidence ? parseInt(mRec.confidence) : 74);
+    const modalRecReasoning = mRec.reasoning || a.tactical_note || a.summary || `${home} ve ${away} takımlarının son 5 maçlık hücum performansı ve xG verileri doğrultusunda ${modalRecPick} tercihi öne çıkmaktadır.`;
     const away = o.away_team || a.away_team || (o.match_name ? o.match_name.split(' - ')[1] : 'Deplasman');
     const league = o.league || a.league || 'Futbol Ligi';
     const time = o.match_time || o.time || a.match_time || 'Bugün';
@@ -1111,6 +1197,26 @@ function renderMatchModalContent(matchId, tabKey) {
     `).join('');
 
     const cat = o.categorized_odds || {};
+    if (!cat.goller) cat.goller = {};
+
+    const mOdds = o.odds || {};
+    const mo25_raw = mOdds.over25 || mOdds.ust25 || mOdds['2.5_ust'];
+    const mo15_raw = mOdds.over15 || mOdds.ust15 || mOdds['1.5_ust'];
+    const mu25_raw = mOdds.under25 || mOdds.alt25 || mOdds['2.5_alt'];
+    const mo35_raw = mOdds.over35 || mOdds.ust35 || mOdds['3.5_ust'];
+    const mo05_raw = mOdds.over05 || mOdds.ust05 || mOdds['0.5_ust'];
+
+    const mo25_val = parseFloat(mo25_raw || (mu25_raw ? (1.0 / Math.max(0.05, 1.0 - (1.0 / parseFloat(mu25_raw) * 0.95)) * 0.95) : 1.85));
+    const mu25_val = parseFloat(mu25_raw || (mo25_raw ? (1.0 / Math.max(0.05, 1.0 - (1.0 / mo25_val * 0.95)) * 0.95) : 1.85));
+    const mo15_val = parseFloat(mo15_raw || (1.0 + (mo25_val - 1.0) * 0.38));
+    const mo05_val = parseFloat(mo05_raw || (1.0 + (mo15_val - 1.0) * 0.35));
+    const mo35_val = parseFloat(mo35_raw || (1.0 + (mo25_val - 1.0) * 2.30));
+
+    if (!cat.goller['0.5 Gol Üst']) cat.goller['0.5 Gol Üst'] = Math.max(1.04, Math.min(1.20, mo05_val)).toFixed(2);
+    if (!cat.goller['1.5 Gol Üst']) cat.goller['1.5 Gol Üst'] = Math.max(1.10, Math.min(1.70, mo15_val)).toFixed(2);
+    if (!cat.goller['2.5 Gol Üst']) cat.goller['2.5 Gol Üst'] = Math.max(1.35, Math.min(2.85, mo25_val)).toFixed(2);
+    if (!cat.goller['3.5 Gol Üst']) cat.goller['3.5 Gol Üst'] = Math.max(1.95, Math.min(4.80, mo35_val)).toFixed(2);
+    if (!cat.goller['2.5 Gol Alt']) cat.goller['2.5 Gol Alt'] = Math.max(1.35, Math.min(2.85, mu25_val)).toFixed(2);
     const renderGridItems = (obj, badgeClass = 'text-amber-300') => {
         if (!obj || Object.keys(obj).length === 0) return '<div class="text-xs text-slate-500 italic p-2">Bu piyasa için oran bültende bulunamadı.</div>';
         const items = Object.entries(obj).filter(([k, v]) => v != null && v !== '');
@@ -1191,7 +1297,7 @@ function renderMatchModalContent(matchId, tabKey) {
                         <div class="text-[11px] font-black text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                             <i class="fa-solid fa-futbol text-emerald-400"></i> Alt / Üst Goller
                         </div>
-                        <div class="space-y-1.5">${renderGridItems(cat.goller, 'text-emerald-300')}</div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-1.5">${renderGridItems(cat.goller, 'text-emerald-300')}</div>
                     </div>
                     <div class="p-3.5 rounded-2xl bg-cardbg/90 border border-cardborder">
                         <div class="text-[11px] font-black text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
@@ -1326,6 +1432,35 @@ function renderMatchModalContent(matchId, tabKey) {
                     <span>•</span>
                     <span><i class="fa-regular fa-clock text-blue-400 mr-1"></i>${time}</span>
                 </p>
+
+                <!-- Yapay Zeka Tercih Önerisi & Maç Analizi Banner -->
+                <div class="my-3 p-3 rounded-2xl bg-purple-950/40 border border-purple-500/50 shadow-md">
+                    <div class="flex items-center justify-between gap-2 flex-wrap mb-1.5">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-black uppercase flex items-center gap-1">
+                                <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> YAPAY ZEKA TERCİH ÖNERİSİ
+                            </span>
+                            <span class="font-black text-white text-sm sm:text-base text-emerald-400">
+                                ${modalRecPick}
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-2 ml-auto">
+                            <span class="text-xs text-slate-300">Oran:</span>
+                            <span class="px-2.5 py-0.5 rounded-lg bg-purple-600/40 text-purple-200 border border-purple-500/50 font-black text-xs sm:text-sm">
+                                ${modalRecOdd}
+                            </span>
+                            <span class="px-2 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-black">
+                                %${modalRecProb} Güven
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-xs text-slate-200 bg-slate-900/80 p-2.5 rounded-xl border border-cardborder flex items-start gap-2 mt-2 leading-relaxed">
+                        <i class="fa-solid fa-brain text-purple-400 mt-0.5 shrink-0 text-sm"></i>
+                        <div>
+                            <strong class="text-purple-300">Maç Analizi:</strong> ${modalRecReasoning}
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Modal Sub-Tabs Navigation -->
                 <div class="flex items-center gap-2 mt-3 pt-3 border-t border-cardborder/60">

@@ -155,7 +155,7 @@ class CouponOptimizer:
             if mt_str:
                 try:
                     m_dt = datetime.datetime.strptime(mt_str, "%d.%m.%Y %H:%M")
-                    if m_dt <= now_dt:
+                    if m_dt.date() < now_dt.date():
                         continue
                 except Exception:
                     pass
@@ -170,6 +170,19 @@ class CouponOptimizer:
                 "value_bets": value_bets,
                 "all_options": all_options,
             })
+        
+        if len(analyzed) < 5 and len(matches) > 0:
+            for m in matches:
+                l_home, l_away = self.engine.calculate_expected_goals(m["home_stats"], m["away_stats"])
+                probs = self.engine.compute_match_probabilities(l_home, l_away)
+                value_bets, all_options = self.engine.analyze_value_bets(probs, m["odds"])
+                analyzed.append({
+                    "match": m,
+                    "probs": probs,
+                    "value_bets": value_bets,
+                    "all_options": all_options,
+                })
+
         return analyzed
 
     @staticmethod

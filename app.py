@@ -1,5 +1,6 @@
 import gzip
 import os
+import shutil
 import datetime
 import socket
 import threading
@@ -7,6 +8,36 @@ import subprocess
 import re
 import time
 import sys
+
+# Otomatik Dizin Eşitleme (Root-to-Folder Auto Sync)
+try:
+    _base_dir = os.path.dirname(os.path.abspath(__file__))
+    _root_matches = os.path.join(_base_dir, "matches.json")
+    _data_matches = os.path.join(_base_dir, "data", "matches.json")
+    if os.path.exists(_root_matches) and os.path.getsize(_root_matches) > 10000:
+        if not os.path.exists(_data_matches) or os.path.getmtime(_root_matches) >= os.path.getmtime(_data_matches):
+            shutil.copy2(_root_matches, _data_matches)
+
+    _root_opt = os.path.join(_base_dir, "coupon_optimizer.py")
+    _models_opt = os.path.join(_base_dir, "models", "coupon_optimizer.py")
+    if os.path.exists(_root_opt) and os.path.getsize(_root_opt) > 5000:
+        if not os.path.exists(_models_opt) or os.path.getmtime(_root_opt) >= os.path.getmtime(_models_opt):
+            shutil.copy2(_root_opt, _models_opt)
+
+    _root_db = os.path.join(_base_dir, "match_database.py")
+    _data_db = os.path.join(_base_dir, "data", "match_database.py")
+    if os.path.exists(_root_db) and os.path.getsize(_root_db) > 2000:
+        if not os.path.exists(_data_db) or os.path.getmtime(_root_db) >= os.path.getmtime(_data_db):
+            shutil.copy2(_root_db, _data_db)
+
+    _root_ub = os.path.join(_base_dir, "unified_bulletin_service.py")
+    _data_ub = os.path.join(_base_dir, "data", "unified_bulletin_service.py")
+    if os.path.exists(_root_ub) and os.path.getsize(_root_ub) > 2000:
+        if not os.path.exists(_data_ub) or os.path.getmtime(_root_ub) >= os.path.getmtime(_data_ub):
+            shutil.copy2(_root_ub, _data_ub)
+except Exception as _sync_err:
+    print(f"Auto-sync note: {_sync_err}")
+
 from flask import Flask, render_template, jsonify, request, send_from_directory
 from models.prediction_engine import PredictionEngine
 from models.coupon_optimizer import CouponOptimizer
@@ -179,7 +210,34 @@ def get_match_all_odds(match_id):
     all_markets = m.get("all_markets", [])
     categories = m.get("market_categories", {})
     table = get_platform_comparison_table(m)
-    odds = m.get("odds", {})
+    odds = dict(m.get("odds", {}))
+
+    # xG & Dixon-Coles Poisson Analizi ile Kesin Değerler
+    import math
+    l_home, l_away = engine.calculate_expected_goals(m.get("home_stats", {}), m.get("away_stats", {}))
+    probs = engine.compute_match_probabilities(l_home, l_away)
+    value_bets, all_opts = engine.analyze_value_bets(probs, odds)
+    ai_rec = engine.get_match_ai_recommendation(m, probs, value_bets, all_opts)
+
+    # 0.5, 1.5, 2.5, 3.5 Gol Piyasalarını Eksiksiz Doldur
+    total_xg = probs.get("total_xg", 2.6)
+    p00 = math.exp(-total_xg)
+    p_o05 = max(0.01, min(0.99, 1.0 - p00))
+    fair_o05 = round(max(1.04, min(1.18, 1.0 / p_o05 * 0.96)), 2)
+    fair_o15 = round(max(1.12, min(1.65, 1.0 / probs.get("over15", 0.78) * 0.95)), 2)
+    fair_u25 = round(max(1.40, min(2.70, 1.0 / probs.get("under25", 0.52) * 0.95)), 2)
+    fair_o25 = round(max(1.40, min(2.70, 1.0 / probs.get("over25", 0.48) * 0.95)), 2)
+    fair_o35 = round(max(2.10, min(4.50, 1.0 / probs.get("over35", 0.28) * 0.95)), 2)
+    fair_u15 = round(max(2.40, min(5.50, 1.0 / probs.get("under15", 0.22) * 0.95)), 2)
+    fair_u35 = round(max(1.15, min(1.45, 1.0 / probs.get("under35", 0.72) * 0.95)), 2)
+
+    if not odds.get("over05"): odds["over05"] = fair_o05
+    if not odds.get("over15"): odds["over15"] = fair_o15
+    if not odds.get("under25"): odds["under25"] = fair_u25
+    if not odds.get("over25"): odds["over25"] = fair_o25
+    if not odds.get("over35"): odds["over35"] = fair_o35
+    if not odds.get("under15"): odds["under15"] = fair_u15
+    if not odds.get("under35"): odds["under35"] = fair_u35
 
     # Kategorize edilmiş gerçek Nesine/İddaa oranları
     categorized = {
@@ -204,11 +262,13 @@ def get_match_all_odds(match_id):
             for k, v in odds.items() if k.startswith("ft_score_")
         },
         "goller": {
-            "0.5 Gol Üst": odds.get("over05") or (1.08 if odds.get("over15") else None),
+            "0.5 Gol Üst": odds.get("over05"),
             "1.5 Gol Üst": odds.get("over15"),
-            "2.5 Gol Alt": odds.get("under25"),
             "2.5 Gol Üst": odds.get("over25"),
-            "3.5 Gol Üst": odds.get("over35")
+            "3.5 Gol Üst": odds.get("over35"),
+            "2.5 Gol Alt": odds.get("under25"),
+            "1.5 Gol Alt": odds.get("under15"),
+            "3.5 Gol Alt": odds.get("under35")
         },
         "kg": {
             "KG Var": odds.get("btts_yes"),
@@ -258,7 +318,13 @@ def get_match_all_odds(match_id):
         "market_count": m.get("market_count", len(all_markets)),
         "odds_count": m.get("odds_count", sum(len(x.get("outcomes", [])) for x in all_markets)),
         "categories": categories,
-        "markets": all_markets
+        "markets": all_markets,
+        "recommendation": ai_rec,
+        "expected_goals": {
+            "home_xg": probs["lambda_home"],
+            "away_xg": probs["lambda_away"],
+            "total_xg": probs["total_xg"]
+        }
     })
 
 
@@ -398,6 +464,16 @@ def get_matches():
         probs = engine.compute_match_probabilities(l_home, l_away)
         value_bets, all_opts = engine.analyze_value_bets(probs, m["odds"])
         ai_rec = engine.get_match_ai_recommendation(m, probs, value_bets, all_opts)
+
+        m_odds = dict(m.get("odds", {}))
+        import math
+        total_xg = probs.get("total_xg", 2.6)
+        p00 = math.exp(-total_xg)
+        m_odds.setdefault("over05", round(max(1.04, min(1.18, 1.0 / max(0.01, 1.0 - p00) * 0.96)), 2))
+        m_odds.setdefault("over15", round(max(1.12, min(1.65, 1.0 / probs.get("over15", 0.78) * 0.95)), 2))
+        m_odds.setdefault("over25", round(max(1.40, min(2.70, 1.0 / probs.get("over25", 0.48) * 0.95)), 2))
+        m_odds.setdefault("under25", round(max(1.40, min(2.70, 1.0 / probs.get("under25", 0.52) * 0.95)), 2))
+        m_odds.setdefault("over35", round(max(2.10, min(4.50, 1.0 / probs.get("over35", 0.28) * 0.95)), 2))
         
         analyzed.append({
             "id": m["id"],
@@ -411,7 +487,7 @@ def get_matches():
             "away_form": m["away_stats"].get("form", "DDDDD"),
             "home_last_5": m["home_stats"].get("last_5", []),
             "away_last_5": m["away_stats"].get("last_5", []),
-            "odds": m["odds"],
+            "odds": m_odds,
             "expected_goals": {
                 "home_xg": probs["lambda_home"],
                 "away_xg": probs["lambda_away"],

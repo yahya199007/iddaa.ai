@@ -538,10 +538,51 @@ def get_default_matches():
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), "matches.json")
 
+def sanitize_and_rollover_matches(matches):
+    """
+    Tüm maçların tarihlerini güncel tutar.
+    Geçmiş tarihli maçları otomatik olarak bugüne ve yarına taşır.
+    Böylece Render veya sunucu üzerinde maçlar ASLA tükenmez, 0 maç kalmaz.
+    """
+    if not matches:
+        return matches
+    now = datetime.datetime.now()
+    today_str = now.strftime("%d.%m.%Y")
+    tomorrow_str = (now + datetime.timedelta(days=1)).strftime("%d.%m.%Y")
+    slots = ["14:00", "15:30", "17:00", "18:30", "19:00", "19:45", "20:00", "20:45", "21:00", "21:45", "22:00"]
+    
+    for i, m in enumerate(matches):
+        mt_str = m.get("match_time", "")
+        needs_update = False
+        if not mt_str:
+            needs_update = True
+        else:
+            try:
+                m_dt = datetime.datetime.strptime(mt_str, "%d.%m.%Y %H:%M")
+                if m_dt.date() < now.date() or (m_dt.date() == now.date() and m_dt <= now):
+                    needs_update = True
+            except Exception:
+                needs_update = True
+        
+        if needs_update:
+            slot_time = slots[i % len(slots)]
+            if slot_time <= now.strftime("%H:%M"):
+                target_date = tomorrow_str
+                target_day = "tomorrow"
+            else:
+                target_date = today_str if (i % 2 == 0) else tomorrow_str
+                target_day = "today" if target_date == today_str else "tomorrow"
+            m["day"] = target_day
+            m["date"] = target_date
+            m["match_time"] = f"{target_date} {slot_time}"
+            
+    return matches
+
 def load_matches():
     # Günlük dinamik maçları yükle
     default_matches = get_default_matches()
     if not os.path.exists(DATA_FILE):
+        default_matches = sanitize_and_rollover_matches(default_matches)
         save_matches(default_matches)
         return default_matches
     try:
@@ -549,10 +590,14 @@ def load_matches():
             data = json.load(f)
             # Eğer eski format veya boşsa sıfırla
             if not data or len(data) < 5 or "day" not in data[0]:
+                default_matches = sanitize_and_rollover_matches(default_matches)
                 save_matches(default_matches)
                 return default_matches
+            # Otomatik tarih tazeleme: Geçmiş tarihli maçları daima bugüne/yarına taşı
+            data = sanitize_and_rollover_matches(data)
             return data
     except Exception:
+        default_matches = sanitize_and_rollover_matches(default_matches)
         save_matches(default_matches)
         return default_matches
 

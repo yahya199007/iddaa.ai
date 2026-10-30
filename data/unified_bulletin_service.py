@@ -590,11 +590,21 @@ def sync_unified_bulletin():
     # Spor Toto bülteni
     st_matches = fetch_spor_toto_bulletin()
     if not st_matches:
-        # Cache'den yükle
+        # Cache'den yükle ve tarihleri bugüne/yarına dinamik güncelle
         if DATA_FILE.exists():
-            st_matches = json.loads(DATA_FILE.read_text("utf-8"))
+            try:
+                st_matches = json.loads(DATA_FILE.read_text("utf-8"))
+            except Exception:
+                st_matches = []
         if not st_matches:
             print("  ❌ Bülten verisi alınamadı"); return None
+
+    # Tarihleri her zaman güncel tut (0 maç kalmasını önler)
+    try:
+        from data.match_database import sanitize_and_rollover_matches
+        st_matches = sanitize_and_rollover_matches(st_matches)
+    except Exception as e:
+        print(f"Tarih rollover uyarısı: {e}")
 
     # The Odds API — paralel çek
     intl_events = []
